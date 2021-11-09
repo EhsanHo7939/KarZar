@@ -74,3 +74,15 @@ def createQuestion(request):
     
     serializer = QuestionSerializer(question, many=False)
     return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def updateQuestion(request, pk):
+    data = request.data
+
+    question = Question.objects.get(id=pk)
+    serializer = QuestionSerializer(question, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+
+    return Response(serializer.data)
