@@ -86,3 +86,10 @@ def updateQuestion(request, pk):
         serializer.save()
 
     return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def deleteQuestion(request, pk):
+    question = Question.objects.get(id=pk)
+    question.delete()
+    return Response('Question was Deleted!')

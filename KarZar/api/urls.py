@@ -8,4 +8,5 @@ urlpatterns = [
     path('questions/', views.getQuestions, name="getQuestions"),
     path('questions/<str:pk>/', views.getQuestion, name="getQuestion"),
     path('questions/<str:pk>/update/', views.updateQuestion, name="updateQuestion"),
+    path('questions/<str:pk>/delete/', views.deleteQuestion, name="deleteQuestion"),
 ]
