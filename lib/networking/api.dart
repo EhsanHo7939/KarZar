@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
 class Networking {
   Networking({this.url});
-
   String? url;
 
   // the URL should be something like 124:0000/questions/
@@ -42,6 +42,7 @@ class Networking {
     String option3,
     String option4,
     String extraOption,
+    BuildContext context,
   ) async {
     Uri _uri = Uri.parse(url!);
     Response? response;
@@ -49,17 +50,24 @@ class Networking {
       response = await post(
         _uri,
         body: {
-          'Q_Body': qBody,
-          'Option_1': option1,
+          "Q_Body": qBody,
+          "Option_1": option1,
           "Option_2": option2,
           "Option_3": option3,
           "Option_4": option4,
-          'Extra_Option': extraOption
+          "Extra_Option": extraOption
         },
       );
     } catch (e) {
-      print(response!.statusCode);
-      print(e);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Center(
+            child: Text('something went wrong with error code:' +
+                response!.statusCode.toString()),
+          ),
+        ),
+      );
     }
   }
 
@@ -71,6 +79,7 @@ class Networking {
     String option3,
     String option4,
     String extraOption,
+    BuildContext context,
   ) async {
     Uri _uri = Uri.parse(url!);
     Response? response;
@@ -78,29 +87,43 @@ class Networking {
       response = await put(
         _uri,
         body: {
-          'Q_Body': qBody,
-          'Option_1': option1,
+          "Q_Body": qBody,
+          "Option_1": option1,
           "Option_2": option2,
           "Option_3": option3,
           "Option_4": option4,
-          'Extra_Option': extraOption
+          "Extra_Option": extraOption
         },
       );
     } catch (e) {
-      print(response!.statusCode);
-      print(e);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Center(
+            child: Text('something went wrong with error code:' +
+                response!.statusCode.toString()),
+          ),
+        ),
+      );
     }
   }
 
 // the URL should be something like 124:0000/questions/id/delete/
-  Future<void> deleteQ() async {
+  Future<void> deleteQ(BuildContext context) async {
     Uri _uri = Uri.parse(url!);
     Response? response;
     try {
       response = await delete(_uri);
     } catch (e) {
-      print(response!.statusCode);
-      print(e);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Center(
+            child: Text('something went wrong with error code:' +
+                response!.statusCode.toString()),
+          ),
+        ),
+      );
     }
   }
 }
