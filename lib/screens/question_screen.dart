@@ -15,8 +15,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
   Random random = Random();
   List? itemCount = [];
   List? colors = [
-    Colors.orange,
     Colors.red,
+    Colors.orange,
     Colors.amber,
     Colors.green,
     Colors.teal,
