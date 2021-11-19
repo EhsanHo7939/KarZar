@@ -1,6 +1,5 @@
 import 'package:kar_zar/custom_widgets/question_holder_bubble.dart';
 import 'package:kar_zar/custom_widgets/appbar.dart';
-import 'package:kar_zar/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -79,14 +78,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    GestureDetector(
-                      child: const CustomAppBar(),
-                      onTap: () {
-                        Navigator.popAndPushNamed(context, HomeScreen.id);
-                      },
-                    ),
-                    const SizedBox(height: 5),
-                    const Divider(color: Colors.grey),
+                    const CustomAppBar(),
                     Padding(
                       padding: isWeb > 420 && isWeb < 1200
                           ? const EdgeInsets.symmetric(

@@ -57,7 +57,9 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
                           maxLines: 5,
                           overflow: TextOverflow.visible,
                           style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -156,6 +158,97 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
                 isActive4 = false;
                 setState(() {});
               },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AdminQuestionHolderBubble extends StatefulWidget {
+  const AdminQuestionHolderBubble({Key? key}) : super(key: key);
+
+  @override
+  _AdminQuestionHolderBubbleState createState() =>
+      _AdminQuestionHolderBubbleState();
+}
+
+class _AdminQuestionHolderBubbleState extends State<AdminQuestionHolderBubble> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 600,
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(25)),
+        boxShadow: [
+          BoxShadow(offset: Offset(0, 0), blurRadius: 25, color: Colors.black26)
+        ],
+      ),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    height: 150,
+                    width: 150,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(25)),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                          "https://cdn.smarttiz.com/Image/News/khoy-cityy_980814152840087.jpg",
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 24),
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: Text(
+                          'سوال مربوط به نظر سنجی اینجا قرار خواهد گرفت.',
+                          softWrap: true,
+                          maxLines: 5,
+                          overflow: TextOverflow.visible,
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            const TextField(
+              decoration: InputDecoration(
+                hintText: 'لطفا گزینه اول را وارد کنید',
+                labelText: 'گزینه ی اول',
+                prefixText: 'رای اول : ',
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
+              ),
+            ),
+            const SizedBox(height: 10),
+            const TextField(
+              decoration: InputDecoration(
+                hintText: 'لطفا گزینه دوم را وارد کنید',
+                labelText: 'گزینه ی دوم',
+                prefixText: 'رای دوم : ',
+                border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                    borderRadius: BorderRadius.all(Radius.circular(25))),
+              ),
             ),
           ],
         ),
