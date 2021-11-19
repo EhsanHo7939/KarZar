@@ -45,7 +45,10 @@ class CustomAppBar extends StatelessWidget {
         ],
       ),
       onTap: () {
-        Navigator.popAndPushNamed(context, HomeScreen.id);
+        Navigator.popAndPushNamed(
+          context,
+          HomeScreen.id,
+        );
       },
     );
   }
