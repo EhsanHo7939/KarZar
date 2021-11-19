@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
             Text(
-              'پلتفورم مستقل جمع اوری ارای شهرستان خوی',
+              'پلتفرم مستقل جمع اوری ارای شهرستان خوی',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 18,
