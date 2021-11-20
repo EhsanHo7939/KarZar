@@ -95,17 +95,15 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           const Directionality(
                             textDirection: TextDirection.rtl,
                             child: CustomTextField(
-                              hintText:
-                                  'نام و نام خانوادگی خود را وارد کنید (اختیاری)',
-                              label: 'نام و نام خانوادگی',
+                              hintText: 'نام و نام خانوادگی خود را وارد کنید ',
+                              label: 'نام و نام خانوادگی (اختیاری)',
                               keyboardType: TextInputType.name,
                             ),
                           ),
                           const SizedBox(height: 20),
                           const CustomTextField(
-                            hintText:
-                                'شماره ی تلفن همراه خود وارد کنید (اجباری)',
-                            label: 'شماره ی همراه',
+                            hintText: 'شماره ی تلفن همراه خود وارد کنید',
+                            label: ' (اجباری) شماره ی همراه',
                             keyboardType: TextInputType.phone,
                           ),
                           const SizedBox(height: 10),
