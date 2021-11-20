@@ -175,6 +175,35 @@ class AdminQuestionHolderBubble extends StatefulWidget {
 }
 
 class _AdminQuestionHolderBubbleState extends State<AdminQuestionHolderBubble> {
+  List<Widget> addOptions = [
+    const Padding(
+      padding: EdgeInsets.only(bottom: 10),
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: 'لطفا گزینه اول را وارد کنید',
+          labelText: 'گزینه ی اول',
+          prefixText: 'رای اول : ',
+          border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+              borderRadius: BorderRadius.all(Radius.circular(25))),
+        ),
+      ),
+    ),
+    const Padding(
+      padding: EdgeInsets.only(bottom: 10),
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: 'لطفا گزینه دوم را وارد کنید',
+          labelText: 'گزینه ی دوم',
+          prefixText: 'رای دوم : ',
+          border: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+              borderRadius: BorderRadius.all(Radius.circular(25))),
+        ),
+      ),
+    ),
+  ];
+  bool visible = true;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -190,33 +219,48 @@ class _AdminQuestionHolderBubbleState extends State<AdminQuestionHolderBubble> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Expanded(
               child: Row(
                 children: <Widget>[
-                  Container(
-                    height: 150,
-                    width: 150,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                          "https://cdn.smarttiz.com/Image/News/khoy-cityy_980814152840087.jpg",
+                  Stack(
+                    alignment: Alignment.bottomLeft,
+                    children: <Widget>[
+                      Container(
+                        height: 150,
+                        width: 150,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              "https://cdn.smarttiz.com/Image/News/khoy-cityy_980814152840087.jpg",
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 50,
+                        child: FloatingActionButton(
+                          child: const Icon(
+                            Icons.add,
+                            size: 30,
+                          ),
+                          backgroundColor: Colors.lightBlueAccent,
+                          elevation: 5,
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
                   ),
                   const Expanded(
                     child: Padding(
                       padding: EdgeInsets.only(right: 24),
                       child: Directionality(
                         textDirection: TextDirection.rtl,
-                        child: Text(
-                          'سوال مربوط به نظر سنجی اینجا قرار خواهد گرفت.',
-                          softWrap: true,
-                          maxLines: 5,
-                          overflow: TextOverflow.visible,
+                        child: TextField(
+                          maxLines: 3,
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
@@ -229,25 +273,44 @@ class _AdminQuestionHolderBubbleState extends State<AdminQuestionHolderBubble> {
               ),
             ),
             const SizedBox(height: 10),
-            const TextField(
-              decoration: InputDecoration(
-                hintText: 'لطفا گزینه اول را وارد کنید',
-                labelText: 'گزینه ی اول',
-                prefixText: 'رای اول : ',
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
-              ),
-            ),
-            const SizedBox(height: 10),
-            const TextField(
-              decoration: InputDecoration(
-                hintText: 'لطفا گزینه دوم را وارد کنید',
-                labelText: 'گزینه ی دوم',
-                prefixText: 'رای دوم : ',
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
+            Column(children: addOptions),
+            Visibility(
+              visible: visible,
+              child: MaterialButton(
+                color: Colors.lightBlueAccent,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
+                child: const Icon(
+                  Icons.add,
+                  size: 50,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  if (addOptions.length < 4) {
+                    setState(() {
+                      addOptions.add(
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: 'لطفا گزینه اضافی را وارد کنید',
+                              labelText: 'گزینه ی اضافی',
+                              prefixText: 'رای اضافی : ',
+                              border: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.grey, width: 1),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
+                            ),
+                          ),
+                        ),
+                      );
+                    });
+                  } else if (addOptions.length == 4) {
+                    setState(() => visible = false);
+                  }
+                },
               ),
             ),
           ],
