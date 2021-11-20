@@ -143,13 +143,6 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
                   borderSide: BorderSide(color: Colors.cyan, width: 1),
                 ),
                 hintText: 'نظر شخصی خودتان را وارد کنید',
-                // suffix: MaterialButton(
-                //   child: const Text('ثبت'),
-                //   color: Colors.cyan,
-                //   shape: const RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.all(Radius.circular(25))),
-                //   onPressed: () {},
-                // ),
               ),
               onChanged: (value) {
                 isActive1 = false;
