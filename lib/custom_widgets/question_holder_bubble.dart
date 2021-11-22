@@ -131,26 +131,31 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
                 });
               },
             ),
-            TextField(
-              controller: controller,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                  borderSide: BorderSide(color: Colors.grey, width: 1),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: TextField(
+                controller: controller,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    borderSide: BorderSide(color: Colors.cyan, width: 1),
+                  ),
+                  hintText: 'نظر شخصی خودتان را وارد کنید',
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 50, horizontal: 20),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                  borderSide: BorderSide(color: Colors.cyan, width: 1),
-                ),
-                hintText: 'نظر شخصی خودتان را وارد کنید',
+                onChanged: (value) {
+                  isActive1 = false;
+                  isActive2 = false;
+                  isActive3 = false;
+                  isActive4 = false;
+                  setState(() {});
+                },
               ),
-              onChanged: (value) {
-                isActive1 = false;
-                isActive2 = false;
-                isActive3 = false;
-                isActive4 = false;
-                setState(() {});
-              },
             ),
           ],
         ),
@@ -160,7 +165,19 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
 }
 
 class AdminQuestionHolderBubble extends StatefulWidget {
-  const AdminQuestionHolderBubble({Key? key}) : super(key: key);
+  const AdminQuestionHolderBubble({
+    Key? key,
+    required this.option1,
+    required this.option2,
+    required this.option3,
+    required this.option4,
+    required this.qBody,
+  }) : super(key: key);
+  final void Function(String) option1;
+  final void Function(String) option2;
+  final void Function(String) option3;
+  final void Function(String) option4;
+  final void Function(String) qBody;
 
   @override
   _AdminQuestionHolderBubbleState createState() =>
@@ -168,34 +185,6 @@ class AdminQuestionHolderBubble extends StatefulWidget {
 }
 
 class _AdminQuestionHolderBubbleState extends State<AdminQuestionHolderBubble> {
-  List<Widget> addOptions = [
-    const Padding(
-      padding: EdgeInsets.only(bottom: 10),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: 'لطفا گزینه اول را وارد کنید',
-          labelText: 'گزینه ی اول',
-          prefixText: 'رای اول : ',
-          border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey, width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(25))),
-        ),
-      ),
-    ),
-    const Padding(
-      padding: EdgeInsets.only(bottom: 10),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: 'لطفا گزینه دوم را وارد کنید',
-          labelText: 'گزینه ی دوم',
-          prefixText: 'رای دوم : ',
-          border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey, width: 1),
-              borderRadius: BorderRadius.all(Radius.circular(25))),
-        ),
-      ),
-    ),
-  ];
   bool visible = true;
   @override
   Widget build(BuildContext context) {
@@ -247,17 +236,18 @@ class _AdminQuestionHolderBubbleState extends State<AdminQuestionHolderBubble> {
                       ),
                     ],
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Padding(
-                      padding: EdgeInsets.only(right: 24),
+                      padding: const EdgeInsets.only(right: 24),
                       child: Directionality(
                         textDirection: TextDirection.rtl,
                         child: TextField(
                           maxLines: 3,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                           ),
+                          onChanged: widget.qBody,
                         ),
                       ),
                     ),
@@ -266,46 +256,60 @@ class _AdminQuestionHolderBubbleState extends State<AdminQuestionHolderBubble> {
               ),
             ),
             const SizedBox(height: 10),
-            Column(children: addOptions),
-            Visibility(
-              visible: visible,
-              child: MaterialButton(
-                color: Colors.lightBlueAccent,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
+            Column(children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'لطفا رای اول را وارد کنید',
+                    labelText: 'رای اول',
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.all(Radius.circular(25))),
+                  ),
+                  onChanged: widget.option1,
                 ),
-                child: const Icon(
-                  Icons.add,
-                  size: 50,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  if (addOptions.length < 4) {
-                    setState(() {
-                      addOptions.add(
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: 'لطفا گزینه اضافی را وارد کنید',
-                              labelText: 'گزینه ی اضافی',
-                              prefixText: 'رای اضافی : ',
-                              border: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.grey, width: 1),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(25))),
-                            ),
-                          ),
-                        ),
-                      );
-                    });
-                  } else if (addOptions.length == 4) {
-                    setState(() => visible = false);
-                  }
-                },
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'لطفا رای دوم را وارد کنید',
+                    labelText: 'رای دوم',
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.all(Radius.circular(25))),
+                  ),
+                  onChanged: widget.option2,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'لطفا رای اضافی را وارد کنید',
+                    labelText: 'رای اضافی',
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.all(Radius.circular(25))),
+                  ),
+                  onChanged: widget.option3,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'لطفا رای اضافی را وارد کنید',
+                    labelText: 'رای اضافی',
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.all(Radius.circular(25))),
+                  ),
+                  onChanged: widget.option4,
+                ),
+              ),
+            ]),
           ],
         ),
       ),
