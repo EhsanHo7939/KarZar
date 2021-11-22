@@ -2,7 +2,11 @@ import 'package:kar_zar/networking/api.dart';
 import 'package:flutter/material.dart';
 
 class GridsBubble extends StatelessWidget {
-  const GridsBubble({Key? key}) : super(key: key);
+  const GridsBubble({
+    Key? key,
+    this.color,
+  }) : super(key: key);
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +14,7 @@ class GridsBubble extends StatelessWidget {
       padding: const EdgeInsets.all(24),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.lightBlueAccent,
+          color: color,
           borderRadius: const BorderRadius.all(Radius.circular(8)).copyWith(
             bottomRight: const Radius.circular(25),
             bottomLeft: Radius.zero,
@@ -26,7 +30,7 @@ class GridsBubble extends StatelessWidget {
                   flex: 5,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.lightBlueAccent,
+                      color: color,
                       borderRadius:
                           const BorderRadius.all(Radius.circular(8)).copyWith(
                         bottomRight: Radius.zero,
@@ -34,19 +38,24 @@ class GridsBubble extends StatelessWidget {
                       ),
                     ),
                     child: const Center(
-                      child: Text(
-                        'در این پرسش نامه ؟؟ نفر شرکت کرده اند',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 20, right: 5, left: 20),
+                        child: Text(
+                          ' ؟؟ \n '
+                          ' نفر شرکت کرده اند',
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
                 Expanded(
-                  flex: 15,
+                  flex: 8,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 25),
                     child: Container(
@@ -55,13 +64,18 @@ class GridsBubble extends StatelessWidget {
                           topLeft: Radius.circular(25),
                           bottomRight: Radius.circular(25),
                         ),
-                        color: Colors.white70,
+                        color: Colors.white54,
                       ),
                       child: const Padding(
-                        padding: EdgeInsets.only(top: 20, right: 120),
+                        padding: EdgeInsets.only(top: 70, right: 20, left: 40),
                         child: Text(
-                          ' روی سوال اینجا قرار خواهد گرفت ',
-                          textAlign: TextAlign.center,
+                          ' روی سوال اینجا قرار خواهد گرفت',
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
