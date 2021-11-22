@@ -1,6 +1,7 @@
 import 'package:kar_zar/custom_widgets/question_holder_bubble.dart';
 import 'package:kar_zar/custom_widgets/appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:kar_zar/networking/api.dart';
 
 class AdminAddQuestionScreen extends StatefulWidget {
   const AdminAddQuestionScreen({Key? key}) : super(key: key);
@@ -11,6 +12,12 @@ class AdminAddQuestionScreen extends StatefulWidget {
 }
 
 class _AdminAddQuestionScreenState extends State<AdminAddQuestionScreen> {
+  String? qBody;
+  String? option1;
+  String? option2;
+  String? option3;
+  String? option4;
+
   @override
   Widget build(BuildContext context) {
     double? isWeb = MediaQuery.of(context).size.width;
@@ -35,7 +42,23 @@ class _AdminAddQuestionScreenState extends State<AdminAddQuestionScreen> {
                               .copyWith(bottom: 0),
                       child: Column(
                         children: <Widget>[
-                          const AdminQuestionHolderBubble(),
+                          AdminQuestionHolderBubble(
+                            qBody: (value) {
+                              qBody = value;
+                            },
+                            option1: (value) {
+                              option1 = value;
+                            },
+                            option2: (value) {
+                              option2 = value;
+                            },
+                            option3: (value) {
+                              option3 = value;
+                            },
+                            option4: (value) {
+                              option4 = value;
+                            },
+                          ),
                           const SizedBox(height: 20),
                           SizedBox(
                             width: 250,
@@ -58,15 +81,25 @@ class _AdminAddQuestionScreenState extends State<AdminAddQuestionScreen> {
                                             'ایا از ارسال نظرسنجی مطمعن هستید'),
                                         actions: [
                                           TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('خیر')),
+                                            child: const Text('خیر'),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
                                           TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text('بله')),
+                                            child: const Text('بله'),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              Networking().createQ(
+                                                qBody!,
+                                                option1!,
+                                                option2!,
+                                                option3!,
+                                                option4!,
+                                                context,
+                                              );
+                                            },
+                                          ),
                                         ],
                                       );
                                     },
