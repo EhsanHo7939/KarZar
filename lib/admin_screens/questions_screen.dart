@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:kar_zar/custom_widgets/appbar.dart';
 import 'package:kar_zar/custom_widgets/grids_bubble.dart';
+import 'package:kar_zar/custom_widgets/appbar.dart';
+import 'package:flutter/material.dart';
+import 'dart:math';
 
 class AdminQuestionsScreen extends StatefulWidget {
   const AdminQuestionsScreen({Key? key}) : super(key: key);
@@ -11,6 +12,20 @@ class AdminQuestionsScreen extends StatefulWidget {
 }
 
 class _AdminQuestionsScreenState extends State<AdminQuestionsScreen> {
+  Random random = Random();
+  List? colors = [
+    Colors.amber[700],
+    Colors.green[700],
+    Colors.teal[800],
+    Colors.blue[700],
+    Colors.purple,
+  ];
+
+  Color getRandomColor() {
+    int color = random.nextInt(5);
+    return colors![color];
+  }
+
   @override
   Widget build(BuildContext context) {
     double? isWeb = MediaQuery.of(context).size.width;
@@ -37,7 +52,9 @@ class _AdminQuestionsScreenState extends State<AdminQuestionsScreen> {
                             childAspectRatio: 1.5,
                           ),
                           itemBuilder: (context, index) {
-                            return const GridsBubble();
+                            return GridsBubble(
+                              color: getRandomColor(),
+                            );
                           },
                         ),
                       ),
