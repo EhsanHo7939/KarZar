@@ -41,7 +41,6 @@ class Networking {
     String option2,
     String option3,
     String option4,
-    String extraOption,
     BuildContext context,
   ) async {
     Uri _uri = Uri.parse(url!);
@@ -55,7 +54,6 @@ class Networking {
           "Option_2": option2,
           "Option_3": option3,
           "Option_4": option4,
-          "Extra_Option": extraOption
         },
       );
     } catch (e) {
@@ -78,7 +76,6 @@ class Networking {
     String option2,
     String option3,
     String option4,
-    String extraOption,
     BuildContext context,
   ) async {
     Uri _uri = Uri.parse(url!);
@@ -92,7 +89,6 @@ class Networking {
           "Option_2": option2,
           "Option_3": option3,
           "Option_4": option4,
-          "Extra_Option": extraOption
         },
       );
     } catch (e) {
