@@ -3,38 +3,46 @@ import 'package:http/http.dart';
 import 'dart:convert';
 
 class Networking {
-  Networking({this.url});
   String? url;
 
-  // the URL should be something like 124:0000/questions/
-  Future<Map<String, String>> getQs() async {
+  Future<List<dynamic>> getQs() async {
+    url = 'http://192.168.102.216/practice/flutter.php';
     Uri _uri = Uri.parse(url!);
-    Response response = await get(_uri);
+    Response response = await get(
+      _uri,
+      headers: {
+        "Accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+    );
 
     if (response.statusCode == 200) {
-      String data = response.body;
-      return jsonDecode(data);
-      //will return usable Map of Qs
+      var data = json.decode(response.body);
+      return data;
+    } else {
+      return [];
+    }
+  }
+
+  Future getQ(String id) async {
+    url = 'http://192.168.102.216/practice/flutter_single_question.php?id=$id';
+    Uri _uri = Uri.parse(url!);
+    Response response = await get(
+      _uri,
+      headers: {
+        "Accept": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      return data;
     } else {
       return {};
     }
   }
 
-  // the URL should be something like 124:0000/questions/id/
-  Future<Map<String, String>> getQ() async {
-    Uri _uri = Uri.parse(url!);
-    Response response = await get(_uri);
-
-    if (response.statusCode == 200) {
-      String data = response.body;
-      return jsonDecode(data);
-      //will return usable Map of Q
-    } else {
-      return {};
-    }
-  }
-
-  // the URL should be something like 124:0000/questions/create/
   Future<void> createQ(
     String qBody,
     String option1,
@@ -43,17 +51,18 @@ class Networking {
     String option4,
     BuildContext context,
   ) async {
+    url = 'http://192.168.102.216/practice/flutter_insert_question.php';
     Uri _uri = Uri.parse(url!);
     Response? response;
     try {
       response = await post(
         _uri,
         body: {
-          "Q_Body": qBody,
-          "Option_1": option1,
-          "Option_2": option2,
-          "Option_3": option3,
-          "Option_4": option4,
+          "qBody": qBody,
+          "option1": option1,
+          "option2": option2,
+          "option3": option3,
+          "option4": option4,
         },
       );
     } catch (e) {
@@ -69,47 +78,18 @@ class Networking {
     }
   }
 
-  // the URL should be something like 124:0000/questions/id/update/
-  Future<void> updateQ(
-    String qBody,
-    String option1,
-    String option2,
-    String option3,
-    String option4,
-    BuildContext context,
-  ) async {
+  Future<void> deleteQ(BuildContext context, String id) async {
+    url = 'http://192.168.102.216/practice/flutter_delete_question.php?id=$id';
     Uri _uri = Uri.parse(url!);
     Response? response;
     try {
-      response = await put(
+      response = await get(
         _uri,
-        body: {
-          "Q_Body": qBody,
-          "Option_1": option1,
-          "Option_2": option2,
-          "Option_3": option3,
-          "Option_4": option4,
+        headers: {
+          "Accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
         },
       );
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          content: Center(
-            child: Text('something went wrong with error code:' +
-                response!.statusCode.toString()),
-          ),
-        ),
-      );
-    }
-  }
-
-// the URL should be something like 124:0000/questions/id/delete/
-  Future<void> deleteQ(BuildContext context) async {
-    Uri _uri = Uri.parse(url!);
-    Response? response;
-    try {
-      response = await delete(_uri);
     } catch (e) {
       showDialog(
         context: context,
