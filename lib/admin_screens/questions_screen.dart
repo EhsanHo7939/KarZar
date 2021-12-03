@@ -1,5 +1,7 @@
 import 'package:kar_zar/custom_widgets/grids_bubble.dart';
+import 'package:kar_zar/screens/question_screen.dart';
 import 'package:kar_zar/custom_widgets/appbar.dart';
+import 'package:kar_zar/networking/api.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -44,17 +46,48 @@ class _AdminQuestionsScreenState extends State<AdminQuestionsScreen> {
                       padding: const EdgeInsets.only(top: 20),
                       child: SizedBox(
                         height: 570,
-                        child: GridView.builder(
-                          itemCount: 10,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            childAspectRatio: 1.5,
-                          ),
-                          itemBuilder: (context, index) {
-                            return GridsBubble(
-                              color: getRandomColor(),
-                            );
+                        child: FutureBuilder<List<dynamic>>(
+                          future: Networking().getQs(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              List<Widget> questions = [];
+                              for (int i = 0; i < snapshot.data!.length; i++) {
+                                String qBody = snapshot.data![i][1].toString();
+                                final gridBubble = GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      QuestionScreen.id,
+                                      arguments: snapshot.data![i][0],
+                                    );
+                                  },
+                                  child: AdminGridsBubble(
+                                    qBody: qBody,
+                                    color: getRandomColor(),
+                                    onPressed: () {
+                                      Networking().deleteQ(
+                                          context, snapshot.data![i][0]);
+                                    },
+                                  ),
+                                );
+
+                                questions.add(gridBubble);
+                              }
+
+                              return GridView(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: isWeb <= 1400
+                                      ? isWeb <= 1006
+                                          ? 1
+                                          : 2
+                                      : 3,
+                                  crossAxisSpacing: 10,
+                                ),
+                                children: questions,
+                              );
+                            }
+                            return Container();
                           },
                         ),
                       ),
