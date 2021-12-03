@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
 
 class QuestionHolderBubble extends StatefulWidget {
-  const QuestionHolderBubble({Key? key}) : super(key: key);
+  const QuestionHolderBubble({
+    Key? key,
+    required this.qBody,
+    required this.option1,
+    required this.option2,
+    required this.option3,
+    required this.option4,
+  }) : super(key: key);
+  final String qBody;
+  final String option1;
+  final String option2;
+  final String option3;
+  final String option4;
 
   @override
   State<QuestionHolderBubble> createState() => _QuestionHolderBubbleState();
@@ -46,17 +58,17 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
                       ),
                     ),
                   ),
-                  const Expanded(
+                  Expanded(
                     child: Padding(
-                      padding: EdgeInsets.only(right: 24),
+                      padding: const EdgeInsets.only(right: 24),
                       child: Directionality(
                         textDirection: TextDirection.rtl,
                         child: Text(
-                          'سوال مربوط به نظر سنجی اینجا قرار خواهد گرفت.',
+                          widget.qBody,
                           softWrap: true,
                           maxLines: 5,
                           overflow: TextOverflow.visible,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                           ),
@@ -69,7 +81,7 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
             ),
             QuestionMaker(
               isActive: isActive1,
-              textMsg: 'نظر یک اینگونه میباشد',
+              textMsg: widget.option1,
               side: isActive1!
                   ? const BorderSide(color: Colors.cyan, width: 1)
                   : const BorderSide(color: Colors.grey, width: 1),
@@ -88,7 +100,7 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
               side: isActive2!
                   ? const BorderSide(color: Colors.cyan, width: 1)
                   : const BorderSide(color: Colors.grey, width: 1),
-              textMsg: 'نظر دو اینگونه میباشد',
+              textMsg: widget.option2,
               onTap: () {
                 setState(() {
                   controller.clear();
@@ -104,7 +116,7 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
               side: isActive3!
                   ? const BorderSide(color: Colors.cyan, width: 1)
                   : const BorderSide(color: Colors.grey, width: 1),
-              textMsg: 'نظر سه اینگونه میباشد',
+              textMsg: widget.option3,
               onTap: () {
                 setState(() {
                   controller.clear();
@@ -120,7 +132,7 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
               side: isActive4!
                   ? const BorderSide(color: Colors.cyan, width: 1)
                   : const BorderSide(color: Colors.grey, width: 1),
-              textMsg: 'نظر چهار اینگونه میباشد',
+              textMsg: widget.option4,
               onTap: () {
                 setState(() {
                   controller.clear();
