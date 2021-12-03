@@ -1,5 +1,6 @@
 import 'package:kar_zar/custom_widgets/question_holder_bubble.dart';
 import 'package:kar_zar/custom_widgets/appbar.dart';
+import 'package:kar_zar/networking/api.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -66,7 +67,8 @@ class _QuestionScreenState extends State<QuestionScreen> {
   @override
   Widget build(BuildContext context) {
     double? isWeb = MediaQuery.of(context).size.width;
-    return isWeb <= 420
+    String arguments = ModalRoute.of(context)!.settings.arguments as String;
+    return isWeb <= 566
         ? const Scaffold()
         : Scaffold(
             body: SingleChildScrollView(
@@ -89,9 +91,38 @@ class _QuestionScreenState extends State<QuestionScreen> {
                               .copyWith(bottom: 0),
                       child: Column(
                         children: <Widget>[
-                          const SizedBox(height: 50),
-                          const QuestionHolderBubble(),
-                          const SizedBox(height: 50),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 100),
+                            child: FutureBuilder(
+                              future: Networking().getQ(arguments),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const CircularProgressIndicator();
+                                }
+
+                                if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text('something went wrong! : ' +
+                                        snapshot.error.toString()),
+                                  );
+                                }
+
+                                if (snapshot.hasData) {
+                                  Map question = snapshot.data as Map;
+                                  return QuestionHolderBubble(
+                                    qBody: question['qBody'],
+                                    option1: question['option1'],
+                                    option2: question['option2'],
+                                    option3: question['option3'],
+                                    option4: question['option4'],
+                                  );
+                                }
+                                return const Center(
+                                    child: Text('something went wrong!'));
+                              },
+                            ),
+                          ),
                           const Directionality(
                             textDirection: TextDirection.rtl,
                             child: CustomTextField(
@@ -100,22 +131,25 @@ class _QuestionScreenState extends State<QuestionScreen> {
                               keyboardType: TextInputType.name,
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          const CustomTextField(
-                            hintText: 'شماره ی تلفن همراه خود وارد کنید',
-                            label: ' (اجباری) شماره ی همراه',
-                            keyboardType: TextInputType.phone,
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            ': رای دهید',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 34,
-                              color: Colors.cyan,
+                          const Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: CustomTextField(
+                              hintText: 'شماره ی تلفن همراه خود وارد کنید',
+                              label: ' (اجباری) شماره ی همراه',
+                              keyboardType: TextInputType.phone,
                             ),
                           ),
-                          const SizedBox(height: 10),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 10),
+                            child: Text(
+                              ': رای دهید',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 34,
+                                color: Colors.cyan,
+                              ),
+                            ),
+                          ),
                           SizedBox(
                             width: 250,
                             child: MaterialButton(
