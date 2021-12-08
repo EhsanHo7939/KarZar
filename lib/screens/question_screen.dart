@@ -67,7 +67,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   @override
   Widget build(BuildContext context) {
     double? isWeb = MediaQuery.of(context).size.width;
-    String arguments = ModalRoute.of(context)!.settings.arguments as String;
+    int arguments = ModalRoute.of(context)!.settings.arguments as int;
     return isWeb <= 566
         ? const Scaffold()
         : Scaffold(
@@ -93,7 +93,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(bottom: 100),
-                            child: FutureBuilder(
+                            child: FutureBuilder<Map<String, dynamic>>(
                               future: Networking().getQ(arguments),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState ==
@@ -109,7 +109,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                 }
 
                                 if (snapshot.hasData) {
-                                  Map question = snapshot.data as Map;
+                                  Map question = snapshot.data!['data'] as Map;
                                   return QuestionHolderBubble(
                                     qBody: question['qBody'],
                                     option1: question['option1'],

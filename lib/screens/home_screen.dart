@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.pushNamed(
                                     context,
                                     QuestionScreen.id,
-                                    arguments: snapshot.data![i][0],
+                                    arguments: snapshot.data![i][0] as int,
                                   );
                                 },
                                 child: GridsBubble(
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: getRandomColor(),
                                 ),
                               );
-                              print(isWeb);
+
                               questions.add(gridBubble);
                             }
 
