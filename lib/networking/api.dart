@@ -24,7 +24,7 @@ class Networking {
     }
   }
 
-  Future getQ(String id) async {
+  Future<Map<String, dynamic>> getQ(int id) async {
     url = 'http://192.168.102.216/practice/flutter_single_question.php?id=$id';
     Uri _uri = Uri.parse(url!);
     Response response = await get(
@@ -78,7 +78,7 @@ class Networking {
     }
   }
 
-  Future<void> deleteQ(BuildContext context, String id) async {
+  Future<void> deleteQ(BuildContext context, int id) async {
     url = 'http://192.168.102.216/practice/flutter_delete_question.php?id=$id';
     Uri _uri = Uri.parse(url!);
     Response? response;
