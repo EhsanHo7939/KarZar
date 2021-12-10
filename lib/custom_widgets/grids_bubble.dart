@@ -74,7 +74,13 @@ class GridsBubble extends StatelessWidget {
           ),
           Container(color: Colors.white, child: const Divider()),
           Container(
-            color: Colors.white,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(8),
+                bottomRight: Radius.circular(8),
+              ),
+            ),
             child: const Directionality(
               textDirection: TextDirection.rtl,
               child: ListTile(
@@ -205,6 +211,100 @@ class AdminGridsBubble extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class MobileGridsBubble extends StatelessWidget {
+  const MobileGridsBubble({
+    Key? key,
+    this.qBody,
+    this.color,
+  }) : super(key: key);
+  final String? qBody;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    double? karzarHeightSize = 160;
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+          side: BorderSide(width: .5, color: color!),
+          borderRadius: BorderRadius.circular(10)),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      color: Colors.white,
+      child: SizedBox(
+        height: karzarHeightSize,
+        child: Stack(
+          children: [
+            Container(
+              height: karzarHeightSize * .43,
+              width: double.infinity,
+              padding: const EdgeInsets.only(right: 150),
+              color: color,
+              child: const Padding(
+                padding: EdgeInsets.only(top: 6),
+                child: Text(
+                  "2,471 نفر\nرای داده اند.",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              height: karzarHeightSize * 1,
+              width: double.infinity,
+              padding: EdgeInsets.only(right: 150, top: karzarHeightSize * .42),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: Text(
+                  qBody!,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                margin: const EdgeInsets.only(right: 12),
+                child: const SizedBox(
+                  height: 120,
+                  width: 120,
+                  child: Image(
+                    image: NetworkImage(
+                      'https://static01.nyt.com/images/2020/07/17/business/00virus-cities1/00virus-cities1-mediumSquareAt3X.jpg',
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.only(left: 20, top: karzarHeightSize * .24),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: FloatingActionButton(
+                  backgroundColor: color,
+                  onPressed: null,
+                  child: const Icon(Icons.border_color_outlined),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
