@@ -15,7 +15,7 @@ class KarZar extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: QuestionScreen.id,
+      initialRoute: HomeScreen.id,
       routes: {
         HomeScreen.id: (context) => const HomeScreen(),
         QuestionScreen.id: (context) => const QuestionScreen(),
