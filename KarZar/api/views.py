@@ -1,7 +1,10 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import QuestionSerializer
-from .models import Question
+from .serializers import QuestionSerializer, VoteSerializer, UserSerializer
+from .models import Question, Vote
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+# from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth import get_user_model
 
 
 # Create your views here.
@@ -20,25 +23,30 @@ def getRoutes(request):
             'method': 'GET',
             'body': None,
             'description': 'Returns a single question object'
-        },
-        {
-            'Endpoint': '/questions/create/',
-            'method': 'POST',
-            'body': {'body': ""},
-            'description': 'Creates a new question object with data sent in post request'
-        },
-        {
-            'Endpoint': '/questions/id/update/',
-            'method': 'PUT',
-            'body': {'body': ""},
-            'description': 'Updates an existing question with data sent in put request'
-        },
-        {
-            'Endpoint': '/questions/id/delete/',
-            'method': 'DELETE',
+        },        {
+            'Endpoint': '/votes/',
+            'method': 'GET',
             'body': None,
-            'description': 'Deletes an existing question'
+            'description': 'Returns an array of votes'
         },
+        {
+            'Endpoint': '/votes/id/',
+            'method': 'GET',
+            'body': None,
+            'description': 'Returns a single vote object'
+        },        {
+            'Endpoint': '/users/',
+            'method': 'GET',
+            'body': None,
+            'description': 'Returns an array of users'
+        },
+        {
+            'Endpoint': '/users/id/',
+            'method': 'GET',
+            'body': None,
+            'description': 'Returns a single user object'
+        },
+
         
         
     ]
@@ -46,50 +54,82 @@ def getRoutes(request):
     return Response(routes)
 
 
-@api_view(['GET'])
-def getQuestions(request):
-    questions = Question.objects.all()
-    serializer = QuestionSerializer(questions, many=True)
-    return Response(serializer.data)
+# @api_view(['GET'])
+# def getQuestions(request):
+#     questions = Question.objects.all()
+#     serializer = QuestionSerializer(questions, many=True)
+#     return Response(serializer.data)
 
 
-@api_view(['GET'])
-def getQuestion(request, pk):
-    question = Question.objects.get(id=pk)
-    serializer = QuestionSerializer(question, many=False)
-    return Response(serializer.data)
+# @api_view(['GET'])
+# def getQuestion(request, pk):
+#     question = Question.objects.get(id=pk)
+#     serializer = QuestionSerializer(question, many=False)
+#     return Response(serializer.data)
 
 
-@api_view(['POST'])
-def createQuestion(request):
-    data = request.data
+# @api_view(['POST'])
+# def createQuestion(request):
+#     data = request.data
 
-    question = Question.objects.create(
-        Q_Body = data['Q_Body'],
-        Option_1 = data['Option_1'],
-        Option_2 = data['Option_2'],
-        Option_3 = data['Option_3'],
-        Option_4 = data['Option_4'],
-    )
+#     question = Question.objects.create(
+#         Q_Body = data['Q_Body'],
+#         Option_1 = data['Option_1'],
+#         Option_2 = data['Option_2'],
+#         Option_3 = data['Option_3'],
+#         Option_4 = data['Option_4'],
+#     )
     
-    serializer = QuestionSerializer(question, many=False)
-    return Response(serializer.data)
+#     serializer = QuestionSerializer(question, many=False)
+#     return Response(serializer.data)
 
 
-@api_view(['PUT'])
-def updateQuestion(request, pk):
-    data = request.data
+# @api_view(['PUT'])
+# def updateQuestion(request, pk):
+#     data = request.data
 
-    question = Question.objects.get(id=pk)
-    serializer = QuestionSerializer(question, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
+#     question = Question.objects.get(id=pk)
+#     serializer = QuestionSerializer(question, data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
 
-    return Response(serializer.data)
+#     return Response(serializer.data)
 
 
-@api_view(['DELETE'])
-def deleteQuestion(request, pk):
-    question = Question.objects.get(id=pk)
-    question.delete()
-    return Response('Question was Deleted!')
+# @api_view(['DELETE'])
+# def deleteQuestion(request, pk):
+#     question = Question.objects.get(id=pk)
+#     question.delete()
+#     return Response('Question was Deleted!')
+
+
+# ---------------------------------------------------------------------------------
+
+class QuestionList(ListCreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+
+class QuestionDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+
+class VoteList(ListCreateAPIView):
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
+
+
+class VoteDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
+
+
+class UserList(ListCreateAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(RetrieveUpdateDestroyAPIView):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer

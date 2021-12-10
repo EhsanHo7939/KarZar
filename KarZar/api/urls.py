@@ -4,9 +4,10 @@ from . import views
 
 urlpatterns = [
     path('', views.getRoutes, name="getRoutes"),
-    path('questions/create/', views.createQuestion, name="createQuestion"),
-    path('questions/', views.getQuestions, name="getQuestions"),
-    path('questions/<str:pk>/', views.getQuestion, name="getQuestion"),
-    path('questions/<str:pk>/update/', views.updateQuestion, name="updateQuestion"),
-    path('questions/<str:pk>/delete/', views.deleteQuestion, name="deleteQuestion"),
+    path('questions/', views.QuestionList.as_view(), name="QuestionList"),
+    path('questions/<str:pk>/', views.QuestionDetail.as_view(), name="QuestionDetail"),
+    path('votes/', views.VoteList.as_view(), name="VoteList"),
+    path('votes/<str:pk>/', views.VoteDetail.as_view(), name="VoteDetail"),
+    path('users/', views.UserList.as_view(), name="UserList"),
+    path('users/<str:pk>/', views.UserDetail.as_view(), name="UserDetail"),
 ]
