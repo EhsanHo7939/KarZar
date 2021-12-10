@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+bool? isActive1 = false;
+bool? isActive2 = false;
+bool? isActive3 = false;
+bool? isActive4 = false;
+String? extraOption;
+TextEditingController controller = TextEditingController();
+
 class QuestionHolderBubble extends StatefulWidget {
   const QuestionHolderBubble({
     Key? key,
@@ -20,12 +27,6 @@ class QuestionHolderBubble extends StatefulWidget {
 }
 
 class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
-  bool? isActive1 = false;
-  bool? isActive2 = false;
-  bool? isActive3 = false;
-  bool? isActive4 = false;
-  TextEditingController controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -161,11 +162,15 @@ class _QuestionHolderBubbleState extends State<QuestionHolderBubble> {
                       EdgeInsets.symmetric(vertical: 50, horizontal: 20),
                 ),
                 onChanged: (value) {
-                  isActive1 = false;
-                  isActive2 = false;
-                  isActive3 = false;
-                  isActive4 = false;
-                  setState(() {});
+                  if (value.isNotEmpty) {
+                    setState(() {
+                      isActive1 = false;
+                      isActive2 = false;
+                      isActive3 = false;
+                      isActive4 = false;
+                      extraOption = value;
+                    });
+                  }
                 },
               ),
             ),
@@ -329,6 +334,182 @@ class _AdminQuestionHolderBubbleState extends State<AdminQuestionHolderBubble> {
   }
 }
 
+class MobileQuestionHolder extends StatefulWidget {
+  const MobileQuestionHolder({Key? key, required this.widgets})
+      : super(key: key);
+  final Widget widgets;
+
+  @override
+  _MobileQuestionHolderState createState() => _MobileQuestionHolderState();
+}
+
+class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(25)),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 0),
+            blurRadius: 25,
+            color: Colors.black26,
+          )
+        ],
+      ),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Column(
+          children: <Widget>[
+            Center(
+              child: Card(
+                margin: const EdgeInsets.only(right: 10),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: Image.asset(
+                  'assets/Khoy_city.png',
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: const [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 24, left: 24),
+                    child: Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Text(
+                        'سوال مربوط به نظر سنجی اینجا قرار خواهد گرفت.',
+                        softWrap: true,
+                        maxLines: 5,
+                        overflow: TextOverflow.visible,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            QuestionMaker(
+              isActive: isActive1,
+              textMsg: 'نظر یک اینگونه میباشد',
+              side: isActive1!
+                  ? const BorderSide(color: Colors.lightBlueAccent, width: 1)
+                  : const BorderSide(color: Colors.grey, width: 1),
+              onTap: () {
+                setState(() {
+                  controller.clear();
+                  isActive1 = true;
+                  isActive2 = false;
+                  isActive3 = false;
+                  isActive4 = false;
+                });
+              },
+            ),
+            QuestionMaker(
+              isActive: isActive2,
+              side: isActive2!
+                  ? const BorderSide(color: Colors.lightBlueAccent, width: 1)
+                  : const BorderSide(color: Colors.grey, width: 1),
+              textMsg: 'نظر دو اینگونه میباشد',
+              onTap: () {
+                setState(() {
+                  controller.clear();
+                  isActive1 = false;
+                  isActive2 = true;
+                  isActive3 = false;
+                  isActive4 = false;
+                });
+              },
+            ),
+            QuestionMaker(
+              isActive: isActive3,
+              side: isActive3!
+                  ? const BorderSide(color: Colors.lightBlueAccent, width: 1)
+                  : const BorderSide(color: Colors.grey, width: 1),
+              textMsg: 'نظر سه اینگونه میباشد',
+              onTap: () {
+                setState(() {
+                  controller.clear();
+                  isActive1 = false;
+                  isActive2 = false;
+                  isActive3 = true;
+                  isActive4 = false;
+                });
+              },
+            ),
+            QuestionMaker(
+              isActive: isActive4,
+              side: isActive4!
+                  ? const BorderSide(color: Colors.cyan, width: 1)
+                  : const BorderSide(color: Colors.grey, width: 1),
+              textMsg: 'نظر چهار اینگونه میباشد',
+              onTap: () {
+                setState(() {
+                  controller.clear();
+                  isActive1 = false;
+                  isActive2 = false;
+                  isActive3 = false;
+                  isActive4 = true;
+                });
+              },
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.only(right: 0, left: 0, top: 15, bottom: 10),
+              child: TextField(
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                controller: controller,
+                decoration: const InputDecoration(
+                  contentPadding:
+                      EdgeInsets.only(top: 18, bottom: 18, right: 15, left: 15),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderSide: BorderSide(color: Colors.grey, width: 2),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderSide: BorderSide(color: Colors.cyan, width: 2),
+                  ),
+                  hintText: 'نظر شخصی خودتان را وارد کنید...',
+                  hintStyle: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    setState(() {
+                      isActive1 = false;
+                      isActive2 = false;
+                      isActive3 = false;
+                      isActive4 = false;
+                      extraOption = value;
+                    });
+                  }
+                },
+              ),
+            ),
+            const Divider(color: Colors.grey, height: 5),
+            widget.widgets
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class QuestionMaker extends StatelessWidget {
   const QuestionMaker({
     Key? key,
@@ -361,5 +542,25 @@ class QuestionMaker extends StatelessWidget {
       ),
       color: isActive! ? Colors.cyan : Colors.white,
     );
+  }
+}
+
+class Getter {
+  int getOptionNumber() {
+    if (isActive1 == true) {
+      return 1;
+    } else if (isActive2 == true) {
+      return 2;
+    } else if (isActive3 == true) {
+      return 3;
+    } else if (isActive4 == true) {
+      return 4;
+    } else {
+      return 0;
+    }
+  }
+
+  String? getExtraOption() {
+    return extraOption;
   }
 }
