@@ -108,6 +108,21 @@ def getRoutes(request):
 class QuestionList(ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    
+    filterset_fields = ["author"]
+    
+    ordering_fields = [
+        "publish",
+        "created",
+        "updated"
+        ]
+    
+    search_fields = [
+        "Q_Body",
+        "author__username",
+        "author__first_name",
+        "author__last_name"
+        ]
 
 
 class QuestionDetail(RetrieveUpdateDestroyAPIView):
@@ -119,6 +134,19 @@ class VoteList(ListCreateAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
 
+    filterset_fields = ["question"]
+    
+    ordering_fields = [
+        "question_id",
+        "created"
+        ]
+    
+    search_fields = [
+        "Voter_Phone_Number",
+        "Voter_Fullname",
+        "Voter_Opinion",
+        "question.Q_Body"
+        ]
 
 class VoteDetail(RetrieveUpdateDestroyAPIView):
     queryset = Vote.objects.all()
@@ -128,6 +156,8 @@ class VoteDetail(RetrieveUpdateDestroyAPIView):
 class UserList(ListCreateAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
+    filterset_fields = ["is_superuser", "is_staff", "is_active"]
+    ordering_fields = []
 
 
 class UserDetail(RetrieveUpdateDestroyAPIView):
