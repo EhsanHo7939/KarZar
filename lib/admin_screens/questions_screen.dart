@@ -46,19 +46,24 @@ class _AdminQuestionsScreenState extends State<AdminQuestionsScreen> {
                       padding: const EdgeInsets.only(top: 20),
                       child: SizedBox(
                         height: 570,
-                        child: FutureBuilder<List<dynamic>>(
+                        child: FutureBuilder<Map<String, dynamic>>(
                           future: Networking().getQs(),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               List<Widget> questions = [];
-                              for (int i = 0; i < snapshot.data!.length; i++) {
-                                String qBody = snapshot.data![i][1].toString();
+                              for (int i = 0;
+                                  i < snapshot.data!['data'].length;
+                                  i++) {
+                                String qBody = snapshot.data!['data'][i]
+                                        ['qBody']
+                                    .toString();
                                 final gridBubble = GestureDetector(
                                   onTap: () {
                                     Navigator.pushNamed(
                                       context,
                                       QuestionScreen.id,
-                                      arguments: snapshot.data![i][0],
+                                      arguments: snapshot.data!['data'][i]['id']
+                                          as int,
                                     );
                                   },
                                   child: AdminGridsBubble(
