@@ -2,7 +2,6 @@ import 'package:kar_zar/admin_screens/add_question_screen.dart';
 import 'package:kar_zar/admin_screens/questions_screen.dart';
 import 'package:kar_zar/admin_screens/results_screen.dart';
 import 'package:kar_zar/screens/question_screen.dart';
-import 'package:kar_zar/screens/about_screen.dart';
 import 'package:kar_zar/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +18,6 @@ class KarZar extends StatelessWidget {
       routes: {
         HomeScreen.id: (context) => const HomeScreen(),
         QuestionScreen.id: (context) => const QuestionScreen(),
-        AboutUsScreen.id: (context) => const AboutUsScreen(),
         AdminAddQuestionScreen.id: (context) => const AdminAddQuestionScreen(),
         AdminQuestionsScreen.id: (context) => const AdminQuestionsScreen(),
         AdminResultsScreen.id: (context) => const AdminResultsScreen(),
