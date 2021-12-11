@@ -115,24 +115,29 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           "نظرسنجی ها",
                           style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
                         ),
                       ),
-                      FutureBuilder<List<dynamic>>(
+                      FutureBuilder<Map<String, dynamic>>(
                         future: Networking().getQs(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             List<Widget> questions = [];
-                            for (int i = 0; i < snapshot.data!.length; i++) {
-                              String qBody = snapshot.data![i][1].toString();
+                            for (int i = 0;
+                                i < snapshot.data!['data'].length;
+                                i++) {
+                              String qBody =
+                                  snapshot.data!['data'][i]['qBody'].toString();
                               final mobileGridsBubble = GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,
                                     QuestionScreen.id,
-                                    arguments: snapshot.data![i][0] as int,
+                                    arguments:
+                                        snapshot.data!['data'][i]['id'] as int,
                                   );
                                 },
                                 child: MobileGridsBubble(
@@ -170,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       const CustomAppBar(
                         headerFontSize: 24,
-                        descriptionFontSize: 22,
+                        descriptionFontSize: 18,
                       ),
                       Stack(
                         children: <Widget>[
@@ -242,19 +247,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       const Divider(),
-                      FutureBuilder<List<dynamic>>(
+                      FutureBuilder<Map<String, dynamic>>(
                         future: Networking().getQs(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             List<Widget> questions = [];
-                            for (int i = 0; i < snapshot.data!.length; i++) {
-                              String qBody = snapshot.data![i][1].toString();
+                            for (int i = 0;
+                                i < snapshot.data!['data'].length;
+                                i++) {
+                              String qBody =
+                                  snapshot.data!['data'][i]['qBody'].toString();
                               final gridBubble = GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,
                                     QuestionScreen.id,
-                                    arguments: snapshot.data![i][0] as int,
+                                    arguments:
+                                        snapshot.data!['data'][i]['id'] as int,
                                   );
                                 },
                                 child: GridsBubble(
@@ -263,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               );
 
-                              if (questions.length <= 6) {
+                              if (questions.length < 6) {
                                 questions.add(gridBubble);
                               }
                             }
