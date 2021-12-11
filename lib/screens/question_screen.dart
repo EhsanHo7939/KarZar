@@ -80,110 +80,153 @@ class _QuestionScreenState extends State<QuestionScreen> {
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(20),
-                  child: MobileQuestionHolder(
-                    widgets: Form(
-                      key: formKey,
-                      child: Column(
-                        children: <Widget>[
-                          Directionality(
-                            textDirection: TextDirection.rtl,
-                            child: CustomTextField(
-                              hintText:
-                                  'نام و نام خانوادگی خود را وارد کنید...',
-                              label: 'نام و نام خانوادگی (اختیاری)',
-                              keyboardType: TextInputType.name,
-                              onSaved: (value) =>
-                                  setState(() => credentials = value),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          Directionality(
-                            textDirection: TextDirection.ltr,
-                            child: CustomTextField(
-                              hintText: 'شماره ی تلفن همراه خود وارد کنید...',
-                              label: 'شماره ی همراه (اجباری)',
-                              keyboardType: TextInputType.number,
-                              validator: (value) {
-                                if (value!.length == 11 &&
-                                    RegExp(r'^[0-9]+$').hasMatch(value)) {
-                                  return null;
-                                } else {
-                                  return 'لطفا شماره همراه را صحیح وارد کنید';
-                                }
-                              },
-                              onSaved: (value) =>
-                                  setState(() => phoneNumber = value),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          const Text(
-                            'رای دهید :',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                              color: Colors.lightBlueAccent,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            width: 250,
-                            child: MaterialButton(
-                              color: Colors.lightBlueAccent,
-                              height: 50,
-                              child: const Center(
-                                child: Text('ثبت'),
-                              ),
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  setState(() => itemCount!.add('user'));
-                                  formKey.currentState!.save();
-                                  //Getter().getExtraOption();
-                                  // credentials
-                                  // phoneNumber
-                                }
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          const Text(
-                            'رای دهندگان',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          const Divider(color: Colors.grey),
-                          SizedBox(
-                            height: 200,
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 5,
-                                crossAxisSpacing: 8,
-                                mainAxisSpacing: 8,
-                              ),
-                              itemCount: itemCount!.length,
-                              itemBuilder: (context, index) {
-                                return CircleAvatar(
-                                  backgroundColor: getRandomColor(),
-                                  radius: 30,
-                                  child: Text(
-                                    getRandomAlphabets(),
-                                    style: const TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
+                  child: Column(
+                    children: <Widget>[
+                      const Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: CustomAppBar(
+                          //TODO
+                          descriptionFontSize: 18,
+                          headerFontSize: 12,
+                        ),
                       ),
-                    ),
+                      FutureBuilder<Map<String, dynamic>>(
+                        future: Networking().getQ(arguments),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          }
+
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: Text('something went wrong! : ' +
+                                  snapshot.error.toString()),
+                            );
+                          }
+
+                          if (snapshot.hasData) {
+                            Map question = snapshot.data!['data'] as Map;
+                            return MobileQuestionHolder(
+                              qBody: question['qBody'],
+                              option1: question['option1'],
+                              option2: question['option2'],
+                              option3: question['option3'],
+                              option4: question['option4'],
+                              widgets: Form(
+                                key: formKey,
+                                child: Column(
+                                  children: <Widget>[
+                                    Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: CustomTextField(
+                                        hintText:
+                                            'نام و نام خانوادگی خود را وارد کنید...',
+                                        label: 'نام و نام خانوادگی (اختیاری)',
+                                        keyboardType: TextInputType.name,
+                                        onSaved: (value) =>
+                                            setState(() => credentials = value),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Directionality(
+                                      textDirection: TextDirection.ltr,
+                                      child: CustomTextField(
+                                        hintText:
+                                            'شماره ی تلفن همراه خود وارد کنید...',
+                                        label: 'شماره ی همراه (اجباری)',
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value!.length == 11 &&
+                                              RegExp(r'^[0-9]+$')
+                                                  .hasMatch(value)) {
+                                            return null;
+                                          } else {
+                                            return 'لطفا شماره همراه را صحیح وارد کنید';
+                                          }
+                                        },
+                                        onSaved: (value) =>
+                                            setState(() => phoneNumber = value),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    const Text(
+                                      'رای دهید :',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24,
+                                        color: Colors.lightBlueAccent,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    SizedBox(
+                                      width: 250,
+                                      child: MaterialButton(
+                                        color: Colors.lightBlueAccent,
+                                        height: 50,
+                                        child: const Center(
+                                          child: Text('ثبت'),
+                                        ),
+                                        onPressed: () {
+                                          if (formKey.currentState!
+                                              .validate()) {
+                                            setState(
+                                                () => itemCount!.add('user'));
+                                            formKey.currentState!.save();
+                                            //Getter().getExtraOption();
+                                            // credentials
+                                            // phoneNumber
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 15,
+                                    ),
+                                    const Text(
+                                      'رای دهندگان',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    const Divider(color: Colors.grey),
+                                    SizedBox(
+                                      height: 200,
+                                      child: GridView.builder(
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 5,
+                                          crossAxisSpacing: 8,
+                                          mainAxisSpacing: 8,
+                                        ),
+                                        itemCount: itemCount!.length,
+                                        itemBuilder: (context, index) {
+                                          return CircleAvatar(
+                                            backgroundColor: getRandomColor(),
+                                            radius: 30,
+                                            child: Text(
+                                              getRandomAlphabets(),
+                                              style: const TextStyle(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                          return const Center(
+                              child: Text('something went wrong!'));
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -199,7 +242,10 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    const CustomAppBar(),
+                    const CustomAppBar(
+                      headerFontSize: 24,
+                      descriptionFontSize: 18,
+                    ),
                     Padding(
                       padding: isWeb > 420 && isWeb < 1200
                           ? const EdgeInsets.symmetric(
