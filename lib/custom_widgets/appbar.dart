@@ -106,14 +106,14 @@ class CustomAdminAppBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: const <Widget>[
                       Text(
-                        'کارزار',
+                        'دارالصفا',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 24,
                         ),
                       ),
                       Text(
-                        'پلتفرم مستقل جمع اوری ارای شهرستان خوی',
+                        'بنیاد توسعه خوی',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
