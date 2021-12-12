@@ -248,12 +248,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       FutureBuilder<List<dynamic>>(
                         future: Networking().getQs(),
                         builder: (context, snapshot) {
-                          print(snapshot.error);
                           if (snapshot.hasData) {
                             List<Widget> questions = [];
                             for (int i = 0; i < snapshot.data!.length; i++) {
                               String qBody =
-                                  snapshot.data![i]['Q_body'].toString();
+                                  snapshot.data![i]['Q_Body'].toString();
                               final gridBubble = GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
