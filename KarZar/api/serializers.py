@@ -12,7 +12,7 @@ class QuestionSerializer(ModelSerializer):
             "email": obj.author.email,
         }
 
-    author = SerializerMethodField("get_author")
+    author_info = SerializerMethodField("get_author")
    
     class Meta:
         model = Question
