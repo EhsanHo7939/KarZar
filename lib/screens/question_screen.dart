@@ -275,13 +275,13 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                   }
 
                                   if (snapshot.hasData) {
-                                    Map question = snapshot.data! as Map;
+                                    Map question = snapshot.data!;
                                     return QuestionHolderBubble(
-                                      qBody: question['Q_body'],
-                                      option1: question['option1'],
-                                      option2: question['option2'],
-                                      option3: question['option3'],
-                                      option4: question['option4'],
+                                      qBody: question['Q_Body'],
+                                      option1: question['Option_1'],
+                                      option2: question['Option_2'],
+                                      option3: question['Option_3'],
+                                      option4: question['Option_4'],
                                     );
                                   }
                                   return const Center(
