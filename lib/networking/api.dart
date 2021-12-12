@@ -6,15 +6,9 @@ class Networking {
   String? url;
 
   Future<List<dynamic>> getQs() async {
-    url = 'http://127.0.0.1:8000/questions/';
+    url = 'http://127.0.0.1:8000/questions/?format=json';
     Uri _uri = Uri.parse(url!);
-    Response response = await get(
-      _uri,
-      headers: {
-        "Accept": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      },
-    );
+    Response response = await get(_uri);
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
@@ -25,16 +19,9 @@ class Networking {
   }
 
   Future<Map<String, dynamic>> getQ(int id) async {
-    url =
-        'http://192.168.102.216/practice/view/flutter_select_question.php?id=$id';
+    url = 'http://127.0.0.1:8000/questions/$id/?format=json';
     Uri _uri = Uri.parse(url!);
-    Response response = await get(
-      _uri,
-      headers: {
-        "Accept": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      },
-    );
+    Response response = await get(_uri);
 
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
