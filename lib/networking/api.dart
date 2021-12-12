@@ -5,8 +5,8 @@ import 'dart:convert';
 class Networking {
   String? url;
 
-  Future<Map<String, dynamic>> getQs() async {
-    url = 'http://192.168.102.216/practice/view/flutter_select_question.php';
+  Future<List<dynamic>> getQs() async {
+    url = 'http://127.0.0.1:8000/questions/';
     Uri _uri = Uri.parse(url!);
     Response response = await get(
       _uri,
@@ -20,7 +20,7 @@ class Networking {
       var data = json.decode(response.body);
       return data;
     } else {
-      return {};
+      return [];
     }
   }
 

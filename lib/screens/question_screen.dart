@@ -85,7 +85,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       const Directionality(
                         textDirection: TextDirection.ltr,
                         child: CustomAppBar(
-                          //TODO
                           descriptionFontSize: 18,
                           headerFontSize: 12,
                         ),
@@ -106,9 +105,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
                           }
 
                           if (snapshot.hasData) {
-                            Map question = snapshot.data!['data'] as Map;
+                            Map question = snapshot.data! as Map;
                             return MobileQuestionHolder(
-                              qBody: question['qBody'],
+                              qBody: question['Q_body'],
                               option1: question['option1'],
                               option2: question['option2'],
                               option3: question['option3'],
@@ -276,10 +275,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
                                   }
 
                                   if (snapshot.hasData) {
-                                    Map question =
-                                        snapshot.data!['data'] as Map;
+                                    Map question = snapshot.data! as Map;
                                     return QuestionHolderBubble(
-                                      qBody: question['qBody'],
+                                      qBody: question['Q_body'],
                                       option1: question['option1'],
                                       option2: question['option2'],
                                       option3: question['option3'],

@@ -121,23 +121,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      FutureBuilder<Map<String, dynamic>>(
+                      FutureBuilder<List<dynamic>>(
                         future: Networking().getQs(),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             List<Widget> questions = [];
-                            for (int i = 0;
-                                i < snapshot.data!['data'].length;
-                                i++) {
+                            for (int i = 0; i < snapshot.data!.length; i++) {
                               String qBody =
-                                  snapshot.data!['data'][i]['qBody'].toString();
+                                  snapshot.data![i]['Q_body'].toString();
                               final mobileGridsBubble = GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,
                                     QuestionScreen.id,
-                                    arguments:
-                                        snapshot.data!['data'][i]['id'] as int,
+                                    arguments: snapshot.data![i]['id'] as int,
                                   );
                                 },
                                 child: MobileGridsBubble(
@@ -186,8 +183,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8)),
                               image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://pbs.twimg.com/media/CikvNL3WUAAWY_m.jpg'),
+                                image: AssetImage(
+                                  'images/Khoy_city.jpg',
+                                ),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -239,31 +237,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ],
                                 ),
-                                height: 200,
                                 width: 200,
+                                height: 200,
                               ),
                             ),
                           ),
                         ],
                       ),
                       const Divider(),
-                      FutureBuilder<Map<String, dynamic>>(
+                      FutureBuilder<List<dynamic>>(
                         future: Networking().getQs(),
                         builder: (context, snapshot) {
+                          print(snapshot.error);
                           if (snapshot.hasData) {
                             List<Widget> questions = [];
-                            for (int i = 0;
-                                i < snapshot.data!['data'].length;
-                                i++) {
+                            for (int i = 0; i < snapshot.data!.length; i++) {
                               String qBody =
-                                  snapshot.data!['data'][i]['qBody'].toString();
+                                  snapshot.data![i]['Q_body'].toString();
                               final gridBubble = GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
                                     context,
                                     QuestionScreen.id,
-                                    arguments:
-                                        snapshot.data!['data'][i]['id'] as int,
+                                    arguments: snapshot.data![i]['id'] as int,
                                   );
                                 },
                                 child: GridsBubble(
@@ -313,9 +309,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Stack(
           children: [
             const Image(
-              image: NetworkImage(
-                  'https://pbs.twimg.com/media/CikvNL3WUAAWY_m.jpg'), // TODO : Fix image fit
+              image: AssetImage(
+                'images/Khoy_city_mobile.jpg',
+              ),
               width: double.infinity,
+              fit: BoxFit.fill,
             ),
             Center(
               child: Card(
