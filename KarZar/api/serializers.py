@@ -37,8 +37,8 @@ class VoteSerializer(ModelSerializer):
             "author": obj.question.author.username,
         }
 
-    question = SerializerMethodField("get_question")
-   
+    question_info = SerializerMethodField("get_question")
+
     class Meta:
         model = Vote
         fields = '__all__'

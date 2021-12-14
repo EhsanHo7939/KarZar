@@ -144,8 +144,7 @@ class VoteList(ListCreateAPIView):
     search_fields = [
         "Voter_Phone_Number",
         "Voter_Fullname",
-        "Voter_Opinion",
-        "question.Q_Body"
+        "Voter_Opinion"
         ]
 
 class VoteDetail(RetrieveUpdateDestroyAPIView):

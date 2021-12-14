@@ -37,7 +37,7 @@ class Vote(models.Model):
 
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
-    Voter_Phone_Number = PhoneNumberField(unique=True, null=True, blank=False)
+    Voter_Phone_Number = PhoneNumberField(null=True, blank=False)
 
     Voter_Fullname = models.CharField(max_length=50, blank=True)
 
