@@ -6,32 +6,32 @@ class Networking {
   String? url;
 
   Future<List<dynamic>> getQs() async {
-    url = 'http://127.0.0.1:8000/questions/?format=json';
+    url = 'http://127.0.0.1:8000/questions/';
     Uri _uri = Uri.parse(url!);
     Response response = await get(_uri);
 
     if (response.statusCode == 200) {
-      var data = json.decode(response.body);
+      var data = json.decode(utf8.decode(response.bodyBytes));
       return data;
     } else {
       return [];
     }
   }
 
-  Future<Map<String, dynamic>> getQ(int id) async {
-    url = 'http://127.0.0.1:8000/questions/$id/?format=json';
+  Future<Map<String, dynamic>> getQ(int? id) async {
+    url = 'http://127.0.0.1:8000/questions/$id/';
     Uri _uri = Uri.parse(url!);
     Response response = await get(_uri);
 
     if (response.statusCode == 200) {
-      var data = json.decode(response.body);
+      var data = json.decode(utf8.decode(response.bodyBytes));
       return data;
     } else {
       return {};
     }
   }
 
-  Future<void> createQ(
+  Future createQ(
     String qBody,
     String option1,
     String option2,
@@ -39,18 +39,19 @@ class Networking {
     String option4,
     BuildContext context,
   ) async {
-    url = 'http://192.168.102.216/practice/flutter_insert_question.php';
+    url = 'http://127.0.0.1:8000/questions/';
     Uri _uri = Uri.parse(url!);
     Response? response;
     try {
       response = await post(
         _uri,
         body: {
-          "qBody": qBody,
-          "option1": option1,
-          "option2": option2,
-          "option3": option3,
-          "option4": option4,
+          "Q_Body": qBody,
+          "Option_1": option1,
+          "Option_2": option2,
+          "Option_3": option3,
+          "Option_4": option4,
+          "author": "1"
         },
       );
     } catch (e) {
@@ -58,8 +59,7 @@ class Networking {
         context: context,
         builder: (context) => AlertDialog(
           content: Center(
-            child: Text('something went wrong with error code:' +
-                response!.statusCode.toString()),
+            child: Text('something went wrong with error code:' + response!.statusCode.toString()),
           ),
         ),
       );
@@ -67,27 +67,67 @@ class Networking {
   }
 
   Future<void> deleteQ(BuildContext context, int id) async {
-    url = 'http://192.168.102.216/practice/flutter_delete_question.php?id=$id';
+    url = 'http://127.0.0.1:8000/questions/$id/';
     Uri _uri = Uri.parse(url!);
     Response? response;
     try {
-      response = await get(
-        _uri,
-        headers: {
-          "Accept": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        },
-      );
+      response = await delete(_uri);
     } catch (e) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
           content: Center(
-            child: Text('something went wrong with error code:' +
-                response!.statusCode.toString()),
+            child: Text('something went wrong with error code:' + response!.statusCode.toString()),
           ),
         ),
       );
+    }
+  }
+
+  Future<List<dynamic>> getVotes() async {
+    url = 'http://127.0.0.1:8000/votes/';
+    Uri _uri = Uri.parse(url!);
+    Response? response = await get(_uri);
+
+    if (response.statusCode == 200) {
+      var data = json.decode(utf8.decode(response.bodyBytes));
+      return data;
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<dynamic>> getVote(int id) async {
+    url = 'http://127.0.0.1:8000/votes/?question=$id';
+    Uri _uri = Uri.parse(url!);
+    Response? response = await get(_uri);
+
+    if (response.statusCode == 200) {
+      var data = json.decode(utf8.decode(response.bodyBytes));
+      return data;
+    } else {
+      return [];
+    }
+  }
+
+  Future<void> setVote(String? phoneNumber, String credentials, int choice, String opinion, int? question) async {
+    url = 'http://127.0.0.1:8000/votes/';
+    Uri _uri = Uri.parse(url!);
+    Response? response;
+    try {
+      response = await post(
+        _uri,
+        body: {
+          "Voter_Phone_Number": "$phoneNumber",
+          "Voter_Fullname": credentials,
+          "Voter_Choise": "$choice",
+          "Voter_Opinion": opinion,
+          "question": "$question"
+        },
+      );
+    } catch (e) {
+      print(e);
+      print(response!.statusCode);
     }
   }
 }

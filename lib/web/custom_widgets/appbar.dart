@@ -1,18 +1,11 @@
-import 'package:kar_zar/admin_screens/add_question_screen.dart';
-import 'package:kar_zar/admin_screens/questions_screen.dart';
-import 'package:kar_zar/admin_screens/results_screen.dart';
-import 'package:kar_zar/screens/home_screen.dart';
+import 'package:kar_zar/web/pages/admin_add_question_page.dart';
+import 'package:kar_zar/web/pages/admin_questions_page.dart';
+import 'package:kar_zar/web/pages/admin_results_page.dart';
+import 'package:kar_zar/web/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({
-    Key? key,
-    this.headerFontSize,
-    this.descriptionFontSize,
-  }) : super(key: key);
-  final double? headerFontSize;
-  final double? descriptionFontSize;
-
+class WebBar extends StatelessWidget {
+  const WebBar({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,13 +16,13 @@ class CustomAppBar extends StatelessWidget {
             children: <Widget>[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
+                children: const <Widget>[
                   Text(
                     'دارالصفا',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: headerFontSize,
+                      fontSize: 24,
                     ),
                   ),
                   Text(
@@ -37,22 +30,26 @@ class CustomAppBar extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: descriptionFontSize,
+                      fontSize: 18,
                     ),
                   ),
                 ],
               ),
               const SizedBox(width: 20),
-              const CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage('images/Logo.jpg'),
+              Card(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shape: const CircleBorder(side: BorderSide(width: 0, color: Colors.transparent)),
+                child: Image.asset(
+                  'images/Logo.jpg',
+                  height: 70,
+                ),
               ),
             ],
           ),
           onTap: () {
             Navigator.popAndPushNamed(
               context,
-              HomeScreen.id,
+              WebHomePage.id,
             );
           },
         ),
@@ -63,9 +60,8 @@ class CustomAppBar extends StatelessWidget {
   }
 }
 
-class CustomAdminAppBar extends StatelessWidget {
-  const CustomAdminAppBar({Key? key}) : super(key: key);
-
+class AdminWebBar extends StatelessWidget {
+  const AdminWebBar({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -79,22 +75,21 @@ class CustomAdminAppBar extends StatelessWidget {
                 TextButton(
                   child: const Text('سوال ها'),
                   onPressed: () {
-                    Navigator.popAndPushNamed(context, AdminQuestionsScreen.id);
+                    Navigator.popAndPushNamed(context, WebAdminQuestionsPage.id);
                   },
                 ),
                 const SizedBox(width: 24),
                 TextButton(
                   child: const Text('افزودن سوال'),
                   onPressed: () {
-                    Navigator.popAndPushNamed(
-                        context, AdminAddQuestionScreen.id);
+                    Navigator.popAndPushNamed(context, WebAdminAddQuestionPage.id);
                   },
                 ),
                 const SizedBox(width: 24),
                 TextButton(
                   child: const Text('گزارش'),
                   onPressed: () {
-                    Navigator.popAndPushNamed(context, AdminResultsScreen.id);
+                    Navigator.popAndPushNamed(context, WebAdminResultsPage.id);
                   },
                 ),
               ],
@@ -122,10 +117,12 @@ class CustomAdminAppBar extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(width: 20),
-                  const CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage(
-                      'https://media.istockphoto.com/photos/low-angle-of-tall-building-in-manhattan-picture-id1291177121?b=1&k=20&m=1291177121&s=170667a&w=0&h=aI1PkWS_GkXJ4Qz0gz2cTOud95SS4hUa4iZc1kqWYL4=',
+                  Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    shape: const CircleBorder(side: BorderSide(width: 0, color: Colors.transparent)),
+                    child: Image.asset(
+                      'images/Logo.jpg',
+                      height: 70,
                     ),
                   ),
                 ],
@@ -133,7 +130,7 @@ class CustomAdminAppBar extends StatelessWidget {
               onTap: () {
                 Navigator.popAndPushNamed(
                   context,
-                  HomeScreen.id,
+                  WebHomePage.id,
                 );
               },
             ),

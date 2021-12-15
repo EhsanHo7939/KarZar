@@ -1,19 +1,19 @@
-import 'package:kar_zar/custom_widgets/grids_bubble.dart';
-import 'package:kar_zar/screens/question_screen.dart';
-import 'package:kar_zar/custom_widgets/appbar.dart';
+import 'package:kar_zar/web/custom_widgets/appbar.dart';
+import 'package:kar_zar/web/custom_widgets/grids.dart';
+import 'package:kar_zar/web/pages/question_page.dart';
 import 'package:kar_zar/networking/api.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class AdminQuestionsScreen extends StatefulWidget {
-  const AdminQuestionsScreen({Key? key}) : super(key: key);
+class WebAdminQuestionsPage extends StatefulWidget {
+  const WebAdminQuestionsPage({Key? key}) : super(key: key);
   static const String id = 'admin_questions_screen';
 
   @override
   _AdminQuestionsScreenState createState() => _AdminQuestionsScreenState();
 }
 
-class _AdminQuestionsScreenState extends State<AdminQuestionsScreen> {
+class _AdminQuestionsScreenState extends State<WebAdminQuestionsPage> {
   Random random = Random();
   List? colors = [
     Colors.amber[700],
@@ -36,12 +36,10 @@ class _AdminQuestionsScreenState extends State<AdminQuestionsScreen> {
         : Scaffold(
             body: SingleChildScrollView(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 50, horizontal: 100)
-                        .copyWith(bottom: 0),
+                padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
                 child: Column(
                   children: <Widget>[
-                    const CustomAdminAppBar(),
+                    const AdminWebBar(),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: SizedBox(
@@ -52,22 +50,29 @@ class _AdminQuestionsScreenState extends State<AdminQuestionsScreen> {
                             if (snapshot.hasData) {
                               List<Widget> questions = [];
                               for (int i = 0; i < snapshot.data!.length; i++) {
-                                String qBody =
-                                    snapshot.data![i]['Q_body'].toString();
+                                String qBody = snapshot.data![i]['Q_Body'].toString();
+                                int id = snapshot.data![i]['id'] as int;
+                                String author = snapshot.data![i]['author_info']['first_name'];
                                 final gridBubble = GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(
+                                    Navigator.push(
                                       context,
-                                      QuestionScreen.id,
-                                      arguments: snapshot.data![i]['id'] as int,
+                                      MaterialPageRoute(
+                                        builder: (context) => WebQuestionPage(
+                                          questionId: id,
+                                        ),
+                                      ),
                                     );
                                   },
                                   child: AdminGridsBubble(
                                     qBody: qBody,
+                                    vote: id,
+                                    author: author,
                                     color: getRandomColor(),
                                     onPressed: () {
-                                      Networking().deleteQ(
-                                          context, snapshot.data![i][0]);
+                                      Navigator.pop(context);
+                                      Networking().deleteQ(context, snapshot.data![i]['id']);
+                                      setState(() {});
                                     },
                                   ),
                                 );
@@ -76,8 +81,7 @@ class _AdminQuestionsScreenState extends State<AdminQuestionsScreen> {
                               }
 
                               return GridView(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: isWeb <= 1400
                                       ? isWeb <= 1006
                                           ? 1
