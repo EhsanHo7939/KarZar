@@ -18,7 +18,17 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
   Random random = Random();
   String? phoneNumber;
   String credentials = 'null';
+  String qBody = '';
+  String option1 = '';
+  String option2 = '';
+  String option3 = '';
+  String option4 = '';
+  int? option1count;
+  int? option2count;
+  int? option3count;
+  int? option4count;
   List? itemCount = [];
+  List phoneNumbers = [];
   List? colors = [
     Colors.red,
     Colors.orange,
@@ -68,6 +78,20 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
     return alphabets![alphabet];
   }
 
+  getNumbers() async {
+    List data = await Networking().getVote(widget.questionId);
+    for (int i = 0; i < data.length; i++) {
+      String newNumber = data[i]["Voter_Phone_Number"];
+      phoneNumbers.add(newNumber);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getNumbers();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -106,13 +130,22 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                     }
 
                     if (snapshot.hasData) {
-                      Map question = snapshot.data!;
+                      Map data = snapshot.data!;
+                      qBody = data['Q_Body'];
+                      option1 = data['Option_1'];
+                      option2 = data['Option_2'];
+                      option3 = data['Option_3'];
+                      option4 = data['Option_4'];
+                      option1count = data['Option_1_count'];
+                      option2count = data['Option_2_count'];
+                      option3count = data['Option_3_count'];
+                      option4count = data['Option_4_count'];
                       return MobileQuestionHolder(
-                        qBody: question['Q_Body'],
-                        option1: question['Option_1'],
-                        option2: question['Option_2'],
-                        option3: question['Option_3'],
-                        option4: question['Option_4'],
+                        qBody: qBody,
+                        option1: option1,
+                        option2: option2,
+                        option3: option3,
+                        option4: option4,
                         widgets: Form(
                           key: formKey,
                           child: Column(
@@ -136,7 +169,7 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                                   validator: (value) {
                                     if (value!.length == 11 &&
                                         RegExp(r'^[0-9]+$').hasMatch(value) &&
-                                        value.substring(0, 1) == '0') {
+                                        value.substring(0, 2) == '09') {
                                       phoneNumber = '+98' + value.substring(1);
                                     } else if (value.length == 13 &&
                                         RegExp(r'^[+]{1}[0-9]{12}$').hasMatch(value) &&
@@ -182,9 +215,48 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                                           ),
                                         );
                                       } else {
-                                        Networking()
-                                            .setVote(phoneNumber!, credentials, choice, opinion, widget.questionId);
-                                        setState(() => itemCount!.add('user'));
+                                        if (choice == 1) option1count = option1count! + 1;
+                                        if (choice == 2) option2count = option2count! + 1;
+                                        if (choice == 3) option3count = option3count! + 1;
+                                        if (choice == 4) option4count = option4count! + 1;
+                                        if (!phoneNumbers.contains(phoneNumber!)) {
+                                          Networking()
+                                              .setVote(phoneNumber!, credentials, choice, opinion, widget.questionId);
+                                          Networking().countVote(
+                                              qBody,
+                                              option1,
+                                              option2,
+                                              option3,
+                                              option4,
+                                              option1count!,
+                                              option2count!,
+                                              option3count!,
+                                              option4count!,
+                                              widget.questionId);
+                                          setState(() => itemCount!.add('user'));
+                                          Navigator.pop(context);
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            const SnackBar(
+                                              backgroundColor: Colors.green,
+                                              content: Text(
+                                                'نظر شما ثبت شد',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => const AlertDialog(
+                                              content: Text('شما قبلا رای داده اید'),
+                                            ),
+                                          );
+                                        }
                                       }
                                     }
                                   },
