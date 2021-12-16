@@ -122,8 +122,8 @@ class _WebHomePageState extends State<WebHomePage> {
                               FutureBuilder<List<dynamic>>(
                                 future: Networking().getVotes(),
                                 builder: (context, snapshot) {
-                                  int totalVotes = snapshot.data!.length;
                                   if (snapshot.hasData) {
+                                    int totalVotes = snapshot.data![0]['id'];
                                     return Text(
                                       "$totalVotes",
                                       style: const TextStyle(
