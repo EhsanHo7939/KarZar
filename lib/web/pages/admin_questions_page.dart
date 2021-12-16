@@ -30,77 +30,78 @@ class _AdminQuestionsScreenState extends State<WebAdminQuestionsPage> {
 
   @override
   Widget build(BuildContext context) {
-    double? isWeb = MediaQuery.of(context).size.width;
-    return isWeb <= 420
-        ? const Scaffold()
-        : Scaffold(
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
-                child: Column(
-                  children: <Widget>[
-                    const AdminWebBar(),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 20),
-                      child: SizedBox(
-                        height: 570,
-                        child: FutureBuilder<List<dynamic>>(
-                          future: Networking().getQs(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              List<Widget> questions = [];
-                              for (int i = 0; i < snapshot.data!.length; i++) {
-                                String qBody = snapshot.data![i]['Q_Body'].toString();
-                                int id = snapshot.data![i]['id'] as int;
-                                String author = snapshot.data![i]['author_info']['first_name'];
-                                final gridBubble = GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => WebQuestionPage(
-                                          questionId: id,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: AdminGridsBubble(
-                                    qBody: qBody,
-                                    vote: id,
-                                    author: author,
-                                    color: getRandomColor(),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Networking().deleteQ(context, snapshot.data![i]['id']);
-                                      setState(() {});
-                                    },
+    double? pageWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
+          child: Column(
+            children: <Widget>[
+              const AdminWebBar(),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: SizedBox(
+                  height: 570,
+                  child: FutureBuilder<List<dynamic>>(
+                    future: Networking().getQs(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<Widget> questions = [];
+                        for (int i = 0; i < snapshot.data!.length; i++) {
+                          String qBody = snapshot.data![i]['Q_Body'].toString();
+                          int id = snapshot.data![i]['id'] as int;
+                          String authorFirstName = snapshot.data![i]['author_info']['first_name'];
+                          String authorLastName = snapshot.data![i]['author_info']['last_name'];
+                          final gridBubble = GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => WebQuestionPage(
+                                    questionId: id,
                                   ),
-                                );
-
-                                questions.add(gridBubble);
-                              }
-
-                              return GridView(
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: isWeb <= 1400
-                                      ? isWeb <= 1006
-                                          ? 1
-                                          : 2
-                                      : 3,
-                                  crossAxisSpacing: 10,
                                 ),
-                                children: questions,
                               );
-                            }
-                            return Container();
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+                            },
+                            child: AdminGridsBubble(
+                              qBody: qBody,
+                              vote: id,
+                              authorFirstName: authorFirstName,
+                              authorLastName: authorLastName,
+                              color: getRandomColor(),
+                              onPressed: () => setState(() {
+                                Networking().deleteQ(id);
+                              }),
+                            ),
+                          );
+
+                          questions.add(gridBubble);
+                        }
+
+                        return Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: GridView(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: pageWidth <= 1400
+                                  ? pageWidth <= 1006
+                                      ? 1
+                                      : 2
+                                  : 3,
+                              crossAxisSpacing: 10,
+                            ),
+                            children: questions,
+                          ),
+                        );
+                      }
+                      return Container();
+                    },
+                  ),
                 ),
               ),
-            ),
-          );
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

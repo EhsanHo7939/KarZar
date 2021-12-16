@@ -18,7 +18,8 @@ class _MobileHomePageState extends State<MobileHomePage> {
   int intColor = 0;
   Random random = Random();
   List<dynamic>? votes;
-
+  String? searchedValue;
+  Future<List<dynamic>>? future = Networking().getQs();
   List? colors = [
     Colors.amber[700],
     Colors.green[700],
@@ -61,14 +62,15 @@ class _MobileHomePageState extends State<MobileHomePage> {
                     padding: const EdgeInsets.symmetric(vertical: 0),
                     child: Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Padding(
-                            padding: EdgeInsets.only(right: 10, left: 10),
+                            padding: const EdgeInsets.only(right: 10, left: 10),
                             child: TextField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "موضوع نظرسنجی را جستجو کنید ...",
                               ),
+                              onChanged: (value) => searchedValue = value,
                             ),
                           ),
                         ),
@@ -85,7 +87,15 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                 style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              setState(() {
+                                if (searchedValue == null || searchedValue == '') {
+                                  future = future = Networking().getQs();
+                                } else {
+                                  future = Networking().searchQ(searchedValue!);
+                                }
+                              });
+                            },
                           ),
                         )
                       ],
@@ -153,7 +163,11 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                   ),
                                   const Text(
                                     "رای برای کنشگری\n شهرستان خوی ",
-                                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -179,14 +193,15 @@ class _MobileHomePageState extends State<MobileHomePage> {
                   ),
                 ),
                 FutureBuilder<List<dynamic>>(
-                  future: Networking().getQs(),
+                  future: future,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       List<Widget> questions = [];
                       for (int i = 0; i < snapshot.data!.length; i++) {
                         String qBody = snapshot.data![i]['Q_Body'].toString();
-                        String author = snapshot.data![i]['author_info']['first_name'];
                         int id = snapshot.data![i]['id'] as int;
+                        String authorFirstName = snapshot.data![i]['author_info']['first_name'];
+                        String authorLastName = snapshot.data![i]['author_info']['last_name'];
                         final mobileGridsBubble = GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -200,7 +215,8 @@ class _MobileHomePageState extends State<MobileHomePage> {
                           },
                           child: MobileGrids(
                             qBody: qBody,
-                            author: author,
+                            authorFirstName: authorFirstName,
+                            authorLastName: authorLastName,
                             vote: id,
                             color: getRandomColor(),
                           ),

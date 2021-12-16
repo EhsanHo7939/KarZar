@@ -7,10 +7,12 @@ class MobileGrids extends StatelessWidget {
     this.qBody,
     this.color,
     this.vote,
-    this.author,
+    this.authorFirstName,
+    this.authorLastName,
   }) : super(key: key);
   final String? qBody;
-  final String? author;
+  final String? authorFirstName;
+  final String? authorLastName;
   final Color? color;
   final int? vote;
 
@@ -112,7 +114,7 @@ class MobileGrids extends StatelessWidget {
                 child: ListTile(
                   leading: const Icon(Icons.person),
                   title: Text(
-                    ' از طرف : $author',
+                    ' از طرف : $authorFirstName $authorLastName',
                   ),
                 ),
               ),
