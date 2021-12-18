@@ -72,22 +72,47 @@ class AdminWebBar extends StatelessWidget {
             Row(
               children: <Widget>[
                 const SizedBox(width: 24),
-                TextButton(
-                  child: const Text('سوال ها'),
+                MaterialButton(
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6))),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'سوال ها',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  color: const Color(0xFF05193f),
                   onPressed: () {
                     Navigator.popAndPushNamed(context, WebAdminQuestionsPage.id);
                   },
                 ),
-                const SizedBox(width: 24),
-                TextButton(
-                  child: const Text('افزودن سوال'),
-                  onPressed: () {
-                    Navigator.popAndPushNamed(context, WebAdminAddQuestionPage.id);
-                  },
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: MaterialButton(
+                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6))),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'افزودن سوال',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    color: const Color(0xFF05193f),
+                    onPressed: () {
+                      Navigator.popAndPushNamed(context, WebAdminAddQuestionPage.id);
+                    },
+                  ),
                 ),
-                const SizedBox(width: 24),
-                TextButton(
-                  child: const Text('گزارش'),
+                MaterialButton(
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6))),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'گزارش',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  color: const Color(0xFF05193f),
                   onPressed: () {
                     Navigator.popAndPushNamed(context, WebAdminResultsPage.id);
                   },
