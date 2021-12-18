@@ -35,7 +35,7 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(25)),
+        borderRadius: BorderRadius.all(Radius.circular(25),),
         boxShadow: [
           BoxShadow(
             offset: Offset(0, 0),
@@ -51,7 +51,7 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
             Center(
               child: Card(
                 margin: const EdgeInsets.only(right: 10),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50),),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: Image.asset(
                   'images/Khoy_city.jpg',
@@ -162,11 +162,11 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
                 decoration: const InputDecoration(
                   contentPadding: EdgeInsets.only(top: 18, bottom: 18, right: 15, left: 15),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderRadius: BorderRadius.all(Radius.circular(20),),
                     borderSide: BorderSide(color: Colors.grey, width: 2),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    borderRadius: BorderRadius.all(Radius.circular(20),),
                     borderSide: BorderSide(color: Colors.cyan, width: 2),
                   ),
                   hintText: 'نظر شخصی خودتان را وارد کنید...',

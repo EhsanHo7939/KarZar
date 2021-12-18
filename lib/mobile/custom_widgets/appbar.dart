@@ -15,11 +15,11 @@ class MobileBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: const <Widget>[
                   Text(
-                    'دارالصفا',
+                    'دارالصّفا',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                      fontSize: 22,
                     ),
                   ),
                   Text(
@@ -27,12 +27,12 @@ class MobileBar extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 12,
+                      fontSize: 16,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 10),
               Card(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 shape: const CircleBorder(side: BorderSide(width: 0, color: Colors.transparent)),

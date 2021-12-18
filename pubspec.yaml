@@ -13,6 +13,7 @@ dependencies:
 
   http: ^0.13.4
   cupertino_icons: ^1.0.2
+  percent_indicator: ^3.4.0
 
 dev_dependencies:
   flutter_test:
@@ -27,11 +28,7 @@ flutter:
     - assets/images/
 
 
-#  fonts:
-#  - family: vazir-bold
-#    fonts:
-#      - asset: assets/Vazir-Bold.ttf
-#
-#  - family: Vazir-Light
-#    fonts:
-#      - asset: assets/Vazir-Light.ttf
+  fonts:
+  - family: Vazir-Bold
+    fonts:
+      - asset: assets/Vazir-Bold.ttf

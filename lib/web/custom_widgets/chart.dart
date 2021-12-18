@@ -21,7 +21,7 @@ Widget cardTheChart(String questionHeader) {
   return Padding(
     padding: const EdgeInsets.all(25.0),
     child: Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(500)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(500),),
       color: const Color(0xFF05193f),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -160,7 +160,7 @@ Widget cardTheChart(String questionHeader) {
                   Text(
                     "30.0 %",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xFFff4a39)),
+                        fontWeight: FontWeight.bold, color: Color(0xFFff4a39),),
                   ),
                   SizedBox(
                     width: 10,

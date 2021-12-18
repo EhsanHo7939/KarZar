@@ -21,8 +21,9 @@ class MobileGrids extends StatelessWidget {
     double? karzarHeightSize = 160;
     return Card(
       elevation: 0,
-      shape:
-          RoundedRectangleBorder(side: BorderSide(width: .5, color: color!), borderRadius: BorderRadius.circular(10)),
+      shape: RoundedRectangleBorder(
+          side: BorderSide(width: .5, color: color!),
+          borderRadius: BorderRadius.circular(10)),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       color: Colors.white,
       child: SizedBox(
@@ -41,15 +42,53 @@ class MobileGrids extends StatelessWidget {
                     color: color,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 6),
-                      child: Text(
-                        ' تعداد $voteCount نفر '
-                        '\n'
-                        'شرکت کرده اند',
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                'نفر',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 5, left: 5),
+                                child: Text(
+                                  '$voteCount',
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      fontFamily: 'Vazir-Bold'),
+                                ),
+                              ),
+                              const Text(
+                                'نفر',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: const [
+                              Text(
+                                'شرکت کرده اند.',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -76,7 +115,8 @@ class MobileGrids extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 margin: const EdgeInsets.only(right: 12),
                 child: SizedBox(
@@ -102,6 +142,19 @@ class MobileGrids extends StatelessWidget {
               ),
             ),
             Container(
+              padding: const EdgeInsets.all(20),
+              color: Colors.white,
+              child: Text(
+                qBody!,
+                textAlign: TextAlign.end,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Container(color: Colors.white, child: const Divider(),),
+            Container(
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -118,7 +171,7 @@ class MobileGrids extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

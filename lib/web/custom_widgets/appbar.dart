@@ -18,7 +18,7 @@ class WebBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: const <Widget>[
                   Text(
-                    'دارالصفا',
+                    'دارالصّفا',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -101,7 +101,7 @@ class AdminWebBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: const <Widget>[
                       Text(
-                        'دارالصفا',
+                        'دارالصّفا',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 24,

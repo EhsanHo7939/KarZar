@@ -1,3 +1,4 @@
+import 'package:kar_zar/web/custom_widgets/bottombar.dart';
 import 'package:kar_zar/web/custom_widgets/question_holder.dart';
 import 'package:kar_zar/web/custom_widgets/appbar.dart';
 import 'package:kar_zar/networking/api.dart';
@@ -23,87 +24,92 @@ class _WebAdminAddQuestionPageState extends State<WebAdminAddQuestionPage> {
     double? pageWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
-          child: Column(
-            children: <Widget>[
-              const AdminWebBar(),
-              Padding(
-                padding: pageWidth > 420 && pageWidth < 1200
-                    ? const EdgeInsets.symmetric(vertical: 50, horizontal: 0).copyWith(bottom: 0)
-                    : const EdgeInsets.symmetric(vertical: 50, horizontal: 200).copyWith(bottom: 0),
-                child: Column(
-                  children: <Widget>[
-                    AdminWebQuestionHolder(
-                      qBody: (value) {
-                        qBody = value;
-                      },
-                      option1: (value) {
-                        option1 = value;
-                      },
-                      option2: (value) {
-                        option2 = value;
-                      },
-                      option3: (value) {
-                        option3 = value;
-                      },
-                      option4: (value) {
-                        option4 = value;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: 250,
-                      child: MaterialButton(
-                        color: Colors.lightBlueAccent,
-                        height: 50,
-                        child: const Center(
-                          child: Text('ثبت سوال'),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
+              child: Column(
+                children: <Widget>[
+                  const AdminWebBar(),
+                  Padding(
+                    padding: pageWidth > 420 && pageWidth < 1200
+                        ? const EdgeInsets.symmetric(vertical: 50, horizontal: 0).copyWith(bottom: 0)
+                        : const EdgeInsets.symmetric(vertical: 50, horizontal: 200).copyWith(bottom: 0),
+                    child: Column(
+                      children: <Widget>[
+                        AdminWebQuestionHolder(
+                          qBody: (value) {
+                            qBody = value;
+                          },
+                          option1: (value) {
+                            option1 = value;
+                          },
+                          option2: (value) {
+                            option2 = value;
+                          },
+                          option3: (value) {
+                            option3 = value;
+                          },
+                          option4: (value) {
+                            option4 = value;
+                          },
                         ),
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text(
-                                  'ارسال سوال',
-                                  textDirection: TextDirection.rtl,
-                                ),
-                                content: const Text('ایا از ارسال نظرسنجی مطمعن هستید'),
-                                actions: [
-                                  TextButton(
-                                    child: const Text('خیر'),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: const Text('بله'),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Networking().createQ(
-                                        qBody,
-                                        option1,
-                                        option2,
-                                        option3,
-                                        option4,
-                                        context,
-                                      );
-                                    },
-                                  ),
-                                ],
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: 250,
+                          child: MaterialButton(
+                            color: Colors.lightBlueAccent,
+                            height: 50,
+                            child: const Center(
+                              child: Text('ثبت سوال'),
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text(
+                                      'ارسال سوال',
+                                      textDirection: TextDirection.rtl,
+                                    ),
+                                    content: const Text('ایا از ارسال نظرسنجی مطمعن هستید'),
+                                    actions: [
+                                      TextButton(
+                                        child: const Text('خیر'),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: const Text('بله'),
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                          Networking().createQ(
+                                            qBody,
+                                            option1,
+                                            option2,
+                                            option3,
+                                            option4,
+                                            context,
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
                               );
                             },
-                          );
-                        },
-                      ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
                     ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              )
-            ],
-          ),
+                  )
+                ],
+              ),
+            ),
+            const WebBottomBar()
+          ],
         ),
       ),
     );

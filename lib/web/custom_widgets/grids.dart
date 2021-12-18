@@ -43,16 +43,53 @@ class WebGrids extends StatelessWidget {
                         int voteCount = snapshot.data!.length;
                         return Padding(
                           padding: const EdgeInsets.all(16),
-                          child: Text(
-                            ' تعداد $voteCount نفر '
-                            '\n'
-                            'شرکت کرده اند',
-                            textAlign: TextAlign.end,
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  const Text(
+                                    'نفر',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.only(right: 5, left: 5),
+                                    child: Text(
+                                      '$voteCount',
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          fontFamily: 'Vazir-Bold'),
+                                    ),
+                                  ),
+                                  const Text(
+                                    'نفر',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: const [
+                                  Text(
+                                    '.شرکت کرده اند',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         );
                       }
@@ -90,7 +127,7 @@ class WebGrids extends StatelessWidget {
                 ),
               ),
             ),
-            Container(color: Colors.white, child: const Divider()),
+            Container(color: Colors.white, child: const Divider(),),
             Container(
               decoration: const BoxDecoration(
                 color: Colors.white,
