@@ -1,6 +1,6 @@
-import 'package:kar_zar/mobile/custom_widgets/appbar.dart';
 import 'package:kar_zar/mobile/custom_widgets/bottombar.dart';
-import 'package:kar_zar/mobile/custom_widgets/grid2.dart';
+import 'package:kar_zar/mobile/custom_widgets/appbar.dart';
+import 'package:kar_zar/mobile/custom_widgets/grid.dart';
 import 'package:kar_zar/mobile/pages/question_page.dart';
 import 'package:kar_zar/networking/api.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +57,8 @@ class _MobileHomePageState extends State<MobileHomePage> {
                       color: Colors.grey[300],
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                          side: const BorderSide(width: .5, color: Colors.grey), borderRadius: BorderRadius.circular(12)),
+                          side: const BorderSide(width: .5, color: Colors.grey),
+                          borderRadius: BorderRadius.circular(12)),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 0),
                         child: Row(
@@ -67,10 +68,9 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                 padding: const EdgeInsets.only(right: 10, left: 10),
                                 child: TextField(
                                   decoration: const InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "موضوع نظرسنجی را جستجو کنید ...",
-                                    hintStyle: TextStyle(fontWeight: FontWeight.bold)
-                                  ),
+                                      border: InputBorder.none,
+                                      hintText: "موضوع نظرسنجی را جستجو کنید ...",
+                                      hintStyle: TextStyle(fontWeight: FontWeight.bold)),
                                   onChanged: (value) => searchedValue = value,
                                 ),
                               ),
@@ -105,7 +105,9 @@ class _MobileHomePageState extends State<MobileHomePage> {
                     ),
                     Card(
                       color: const Color(0xff0dceff),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       child: AspectRatio(
                         aspectRatio: 3.5 / 2,
@@ -154,7 +156,9 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                               );
                                             }
                                             if (!snapshot.hasData) {
-                                              return const Center(child: CircularProgressIndicator(),);
+                                              return const Center(
+                                                child: CircularProgressIndicator(),
+                                              );
                                             }
                                             return Container();
                                           },
@@ -212,7 +216,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                   ),
                                 );
                               },
-                              child: MobileGrids2(
+                              child: MobileGrids(
                                 qBody: qBody,
                                 authorFirstName: authorFirstName,
                                 authorLastName: authorLastName,

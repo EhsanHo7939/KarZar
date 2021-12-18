@@ -1,5 +1,5 @@
-import 'package:kar_zar/web/custom_widgets/appbar.dart';
 import 'package:kar_zar/web/custom_widgets/bottombar.dart';
+import 'package:kar_zar/web/custom_widgets/appbar.dart';
 import 'package:kar_zar/web/custom_widgets/grids.dart';
 import 'package:kar_zar/web/pages/question_page.dart';
 import 'package:kar_zar/networking/api.dart';
@@ -42,8 +42,7 @@ class _WebHomePageState extends State<WebHomePage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100)
-                  .copyWith(bottom: 0),
+              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -58,11 +57,11 @@ class _WebHomePageState extends State<WebHomePage> {
                               color: Colors.grey[300],
                               elevation: 0,
                               shape: RoundedRectangleBorder(
-                                  side: const BorderSide(
-                                      width: .5, color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(5),),
+                                side: const BorderSide(width: .5, color: Colors.grey),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 12,left: 12),
+                                padding: const EdgeInsets.only(right: 12, left: 12),
                                 child: TextField(
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
@@ -71,41 +70,38 @@ class _WebHomePageState extends State<WebHomePage> {
                                   onChanged: (value) => searchedValue = value,
                                 ),
                               ),
-                            ),flex: 6,
+                            ),
+                            flex: 6,
                           ),
                           Expanded(
                             child: Card(
                               color: const Color(0xff0dceff),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),),
+                                borderRadius: BorderRadius.circular(5),
+                              ),
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: InkWell(
                                 child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 35, vertical: 12),
+                                  padding: EdgeInsets.symmetric(horizontal: 35, vertical: 12),
                                   child: Center(
                                     child: Text(
                                       "جستجو",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
+                                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14),
                                     ),
                                   ),
                                 ),
                                 onTap: () {
                                   setState(() {
-                                    if (searchedValue == null ||
-                                        searchedValue == '') {
+                                    if (searchedValue == null || searchedValue == '') {
                                       future = future = Networking().getQs();
                                     } else {
-                                      future =
-                                          Networking().searchQ(searchedValue!);
+                                      future = Networking().searchQ(searchedValue!);
                                     }
                                   });
                                 },
                               ),
-                            ),flex: 1,
+                            ),
+                            flex: 1,
                           ),
                         ],
                       ),
@@ -144,23 +140,21 @@ class _WebHomePageState extends State<WebHomePage> {
                                       future: Networking().getVotes(),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
-                                          int totalVotes =
-                                              snapshot.data![0]['id'];
+                                          int totalVotes = snapshot.data![0]['id'];
                                           return Text(
                                             "$totalVotes",
                                             style: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 22,
-                                              fontFamily: 'Vazir-Bold'
-                                            ),
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 22,
+                                                fontFamily: 'Vazir-Bold'),
                                           );
                                         }
 
                                         if (!snapshot.hasData) {
                                           return const Center(
-                                              child:
-                                                  CircularProgressIndicator(),);
+                                            child: CircularProgressIndicator(),
+                                          );
                                         }
                                         return Container();
                                       },
@@ -190,13 +184,10 @@ class _WebHomePageState extends State<WebHomePage> {
                         if (snapshot.hasData) {
                           List<Widget> questions = [];
                           for (int i = 0; i < snapshot.data!.length; i++) {
-                            String qBody =
-                                snapshot.data![i]['Q_Body'].toString();
+                            String qBody = snapshot.data![i]['Q_Body'].toString();
                             int id = snapshot.data![i]['id'] as int;
-                            String authorFirstName =
-                                snapshot.data![i]['author_info']['first_name'];
-                            String authorLastName =
-                                snapshot.data![i]['author_info']['last_name'];
+                            String authorFirstName = snapshot.data![i]['author_info']['first_name'];
+                            String authorLastName = snapshot.data![i]['author_info']['last_name'];
                             final gridBubble = GestureDetector(
                               onTap: () {
                                 Navigator.push(
@@ -226,8 +217,7 @@ class _WebHomePageState extends State<WebHomePage> {
                             textDirection: TextDirection.rtl,
                             child: GridView(
                               shrinkWrap: true,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: pageWidth < 1513.9
                                     ? pageWidth <= 1074
                                         ? 1

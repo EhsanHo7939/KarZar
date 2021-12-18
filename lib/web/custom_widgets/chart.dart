@@ -1,6 +1,6 @@
-import 'package:percent_indicator/percent_indicator.dart';
-import 'package:kar_zar/networking/api.dart';
 import 'package:flutter/material.dart';
+import 'package:kar_zar/networking/api.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class TheChart extends StatefulWidget {
   const TheChart({
@@ -67,12 +67,11 @@ class _TheChartState extends State<TheChart> {
                             animation: true,
                             lineHeight: 50.0,
                             animationDuration: 1000,
-                            percent: option1Percent,
+                            percent: double.parse(option1Percent.toStringAsFixed(4)),
                             center: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                    " ${(data['Option_1_count'] * 100) / (data['Option_1_count'] + data['Option_2_count'] + data['Option_3_count'] + data['Option_4_count'])} %"),
+                                Text("${double.parse(option1Percent.toStringAsFixed(3)) * 100} %"),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
@@ -94,12 +93,11 @@ class _TheChartState extends State<TheChart> {
                             animation: true,
                             lineHeight: 50.0,
                             animationDuration: 1000,
-                            percent: option2Percent,
+                            percent: double.parse(option2Percent.toStringAsFixed(4)),
                             center: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                    " ${(data['Option_2_count'] * 100) / (data['Option_1_count'] + data['Option_2_count'] + data['Option_3_count'] + data['Option_4_count'])} %"),
+                                Text("${double.parse(option2Percent.toStringAsFixed(3)) * 100} %"),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
@@ -121,12 +119,11 @@ class _TheChartState extends State<TheChart> {
                             animation: true,
                             lineHeight: 50.0,
                             animationDuration: 1000,
-                            percent: option3Percent,
+                            percent: double.parse(option3Percent.toStringAsFixed(4)),
                             center: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                    " ${(data['Option_3_count'] * 100) / (data['Option_1_count'] + data['Option_2_count'] + data['Option_3_count'] + data['Option_4_count'])} %"),
+                                Text(" ${double.parse(option3Percent.toStringAsFixed(3)) * 100} %"),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(
@@ -148,12 +145,11 @@ class _TheChartState extends State<TheChart> {
                             animation: true,
                             lineHeight: 50.0,
                             animationDuration: 1000,
-                            percent: option4Percent,
+                            percent: double.parse(option4Percent.toStringAsFixed(4)),
                             center: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                    " ${(data['Option_4_count'] * 100) / (data['Option_1_count'] + data['Option_2_count'] + data['Option_3_count'] + data['Option_4_count'])} %"),
+                                Text(" ${double.parse(option4Percent.toStringAsFixed(3)) * 100} %"),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: Text(

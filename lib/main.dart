@@ -1,6 +1,6 @@
-import 'package:kar_zar/mobile/mobile_main.dart';
-import 'package:kar_zar/web/web_main.dart';
 import 'package:flutter/material.dart';
+import 'package:kar_zar/web/web_main.dart';
+import 'package:kar_zar/mobile/mobile_main.dart';
 
 void main() => runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: KarZar()));
 

@@ -1,5 +1,5 @@
-import 'package:kar_zar/mobile/custom_widgets/bottombar.dart';
 import 'package:kar_zar/mobile/custom_widgets/question_holder.dart';
+import 'package:kar_zar/mobile/custom_widgets/bottombar.dart';
 import 'package:kar_zar/mobile/custom_widgets/appbar.dart';
 import 'package:kar_zar/networking/api.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +120,9 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
 
                         if (snapshot.hasError) {
                           return Center(
-                            child: Text('something went wrong! : ' + snapshot.error.toString(),),
+                            child: Text(
+                              'something went wrong! : ' + snapshot.error.toString(),
+                            ),
                           );
                         }
 
@@ -129,7 +131,9 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                         }
 
                         if (snapshot.connectionState == ConnectionState.none) {
-                          return const Center(child: CircularProgressIndicator(),);
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
                         }
 
                         if (snapshot.hasData) {
@@ -223,8 +227,8 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                                             if (choice == 3) option3count = option3count! + 1;
                                             if (choice == 4) option4count = option4count! + 1;
                                             if (!phoneNumbers.contains(phoneNumber!)) {
-                                              Networking()
-                                                  .setVote(phoneNumber!, credentials, choice, opinion, widget.questionId);
+                                              Networking().setVote(
+                                                  phoneNumber!, credentials, choice, opinion, widget.questionId);
                                               Networking().countVote(
                                                   qBody,
                                                   option1,
@@ -306,7 +310,9 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                             ),
                           );
                         }
-                        return const Center(child: Text('something went wrong!'),);
+                        return const Center(
+                          child: Text('something went wrong!'),
+                        );
                       },
                     ),
                   ],

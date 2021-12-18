@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-bool? isActive1 = false;
-bool? isActive2 = false;
-bool? isActive3 = false;
 bool? isActive4 = false;
+bool? isActive3 = false;
+bool? isActive2 = false;
+bool? isActive1 = false;
 String extraOption = 'null';
 TextEditingController controller = TextEditingController();
 
@@ -48,7 +48,9 @@ class _WebQuestionHolderState extends State<WebQuestionHolder> {
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     shape: const RoundedRectangleBorder(
                       side: BorderSide(color: Colors.transparent, width: 0),
-                      borderRadius: BorderRadius.all(Radius.circular(8),),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
                     ),
                     child: Image.network(
                       "https://cdn.smarttiz.com/Image/News/khoy-cityy_980814152840087.jpg",
@@ -157,11 +159,15 @@ class _WebQuestionHolderState extends State<WebQuestionHolder> {
                 controller: controller,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25),),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
                     borderSide: BorderSide(color: Colors.grey, width: 1),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25),),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
                     borderSide: BorderSide(color: Colors.cyan, width: 1),
                   ),
                   hintText: 'نظر شخصی خودتان را وارد کنید',
@@ -237,7 +243,9 @@ class _AdminWebQuestionHolderState extends State<AdminWebQuestionHolder> {
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         shape: const RoundedRectangleBorder(
                           side: BorderSide(color: Colors.transparent, width: 0),
-                          borderRadius: BorderRadius.all(Radius.circular(8),),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          ),
                         ),
                         child: Image.network(
                           "https://cdn.smarttiz.com/Image/News/khoy-cityy_980814152840087.jpg",
@@ -289,8 +297,11 @@ class _AdminWebQuestionHolderState extends State<AdminWebQuestionHolder> {
                       hintText: 'لطفا رای اول را وارد کنید',
                       labelText: 'رای اول',
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey, width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(25),),),
+                        borderSide: BorderSide(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                      ),
                     ),
                     onChanged: widget.option1,
                   ),
@@ -302,8 +313,11 @@ class _AdminWebQuestionHolderState extends State<AdminWebQuestionHolder> {
                       hintText: 'لطفا رای دوم را وارد کنید',
                       labelText: 'رای دوم',
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey, width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(25),),),
+                        borderSide: BorderSide(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                      ),
                     ),
                     onChanged: widget.option2,
                   ),
@@ -315,8 +329,11 @@ class _AdminWebQuestionHolderState extends State<AdminWebQuestionHolder> {
                       hintText: 'لطفا رای اضافی را وارد کنید',
                       labelText: 'رای اضافی',
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey, width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(25),),),
+                        borderSide: BorderSide(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                      ),
                     ),
                     onChanged: widget.option3,
                   ),
@@ -328,8 +345,11 @@ class _AdminWebQuestionHolderState extends State<AdminWebQuestionHolder> {
                       hintText: 'لطفا رای اضافی را وارد کنید',
                       labelText: 'رای اضافی',
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey, width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(25),),),
+                        borderSide: BorderSide(color: Colors.grey, width: 1),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(25),
+                        ),
+                      ),
                     ),
                     onChanged: widget.option4,
                   ),
@@ -362,7 +382,9 @@ class QuestionMaker extends StatelessWidget {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       shape: RoundedRectangleBorder(
         side: side!,
-        borderRadius: const BorderRadius.all(Radius.circular(25),),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(25),
+        ),
       ),
       child: ListTile(
         title: Text(

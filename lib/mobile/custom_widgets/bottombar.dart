@@ -24,8 +24,8 @@ class _MobileBottomBarState extends State<MobileBottomBar> {
                   child: Text(
                     'تمامی حقوق برای شرکت توسعه فناوری برخط بنیاد توسعه خوی محفوط است.',
                     softWrap: true,
-                    overflow: TextOverflow.clip,
                     textAlign: TextAlign.center,
+                    overflow: TextOverflow.clip,
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey[200],

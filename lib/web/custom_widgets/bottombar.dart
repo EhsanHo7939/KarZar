@@ -23,8 +23,8 @@ class _WebBottomBarState extends State<WebBottomBar> {
                 'دارک روم',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.lightBlue,
                   fontWeight: FontWeight.bold,
+                  color: Colors.lightBlue,
                 ),
               ),
               onPressed: () {},

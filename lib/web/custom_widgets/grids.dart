@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:kar_zar/networking/api.dart';
+import 'package:flutter/material.dart';
 
 class WebGrids extends StatelessWidget {
   const WebGrids({
@@ -56,8 +56,7 @@ class WebGrids extends StatelessWidget {
                                     ),
                                   ),
                                   Padding(
-                                    padding:
-                                    const EdgeInsets.only(right: 5, left: 5),
+                                    padding: const EdgeInsets.only(right: 5, left: 5),
                                     child: Text(
                                       '$voteCount',
                                       style: const TextStyle(
@@ -127,7 +126,10 @@ class WebGrids extends StatelessWidget {
                 ),
               ),
             ),
-            Container(color: Colors.white, child: const Divider(),),
+            Container(
+              color: Colors.white,
+              child: const Divider(),
+            ),
             Container(
               decoration: const BoxDecoration(
                 color: Colors.white,

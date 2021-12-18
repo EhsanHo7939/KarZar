@@ -1,5 +1,5 @@
-import 'package:kar_zar/web/custom_widgets/bottombar.dart';
 import 'package:kar_zar/web/custom_widgets/question_holder.dart';
+import 'package:kar_zar/web/custom_widgets/bottombar.dart';
 import 'package:kar_zar/web/custom_widgets/appbar.dart';
 import 'package:kar_zar/networking/api.dart';
 import 'package:flutter/material.dart';
@@ -231,7 +231,8 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
                                     if (choice == 3) option3count = option3count! + 1;
                                     if (choice == 4) option4count = option4count! + 1;
                                     if (!phoneNumbers.contains(phoneNumber!)) {
-                                      Networking().setVote(phoneNumber!, credentials, choice, opinion, widget.questionId);
+                                      Networking()
+                                          .setVote(phoneNumber!, credentials, choice, opinion, widget.questionId);
                                       Networking().countVote(qBody, option1, option2, option3, option4, option1count!,
                                           option2count!, option3count!, option4count!, widget.questionId);
                                       setState(() => itemCount!.add('user'));
