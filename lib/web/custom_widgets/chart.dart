@@ -66,7 +66,7 @@ class _TheChartState extends State<TheChart> {
                             backgroundColor: const Color(0xFF05193f),
                             animation: true,
                             lineHeight: 50.0,
-                            animationDuration: 2000,
+                            animationDuration: 1000,
                             percent: option1Percent,
                             center: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,7 +93,7 @@ class _TheChartState extends State<TheChart> {
                             backgroundColor: const Color(0xFF05193f),
                             animation: true,
                             lineHeight: 50.0,
-                            animationDuration: 2500,
+                            animationDuration: 1000,
                             percent: option2Percent,
                             center: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,7 +120,7 @@ class _TheChartState extends State<TheChart> {
                             backgroundColor: const Color(0xFF05193f),
                             animation: true,
                             lineHeight: 50.0,
-                            animationDuration: 2500,
+                            animationDuration: 1000,
                             percent: option3Percent,
                             center: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -147,7 +147,7 @@ class _TheChartState extends State<TheChart> {
                             backgroundColor: const Color(0xFF05193f),
                             animation: true,
                             lineHeight: 50.0,
-                            animationDuration: 2500,
+                            animationDuration: 1000,
                             percent: option4Percent,
                             center: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
