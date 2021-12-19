@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .permissions import IsStaffOrReadOnly, IsAuthorOrReadOnly, IsSuperUser
 from .serializers import QuestionSerializer, VoteSerializer, UserSerializer
 from .models import Question, Vote
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
@@ -108,6 +109,7 @@ def getRoutes(request):
 class QuestionList(ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    permission_classes = (IsStaffOrReadOnly,)
     
     filterset_fields = ["author"]
     
@@ -128,6 +130,7 @@ class QuestionList(ListCreateAPIView):
 class QuestionDetail(RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    permission_classes = (IsStaffOrReadOnly, IsAuthorOrReadOnly)
 
 
 class VoteList(ListCreateAPIView):
@@ -150,6 +153,7 @@ class VoteList(ListCreateAPIView):
 class VoteDetail(RetrieveUpdateDestroyAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
+    permission_classes = (IsStaffOrReadOnly, )
 
 
 class UserList(ListCreateAPIView):
@@ -157,8 +161,9 @@ class UserList(ListCreateAPIView):
     serializer_class = UserSerializer
     filterset_fields = ["is_superuser", "is_staff", "is_active"]
     ordering_fields = []
-
+    permission_classes = (IsSuperUser, )
 
 class UserDetail(RetrieveUpdateDestroyAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
+    permission_classes = (IsSuperUser, )
