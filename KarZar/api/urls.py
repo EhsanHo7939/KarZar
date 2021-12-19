@@ -4,7 +4,6 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.getRoutes, name="getRoutes"),
     path('questions/', views.QuestionList.as_view(), name="QuestionList"),
     path('questions/<str:pk>/', views.QuestionDetail.as_view(), name="QuestionDetail"),
     path('votes/', views.VoteList.as_view(), name="VoteList"),

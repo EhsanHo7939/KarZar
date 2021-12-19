@@ -1,5 +1,3 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from .permissions import IsStaffOrReadOnly, IsAuthorOrReadOnly, IsSuperUser
 from .serializers import QuestionSerializer, VoteSerializer, UserSerializer
 from .models import Question, Vote
@@ -9,51 +7,6 @@ from django.contrib.auth import get_user_model
 
 
 # Create your views here.
-
-@api_view(['GET'])
-def getRoutes(request):
-    routes = [
-        {
-            'Endpoint': '/questions/',
-            'method': 'GET',
-            'body': None,
-            'description': 'Returns an array of questions'
-        },
-        {
-            'Endpoint': '/questions/id/',
-            'method': 'GET',
-            'body': None,
-            'description': 'Returns a single question object'
-        },        {
-            'Endpoint': '/votes/',
-            'method': 'GET',
-            'body': None,
-            'description': 'Returns an array of votes'
-        },
-        {
-            'Endpoint': '/votes/id/',
-            'method': 'GET',
-            'body': None,
-            'description': 'Returns a single vote object'
-        },        {
-            'Endpoint': '/users/',
-            'method': 'GET',
-            'body': None,
-            'description': 'Returns an array of users'
-        },
-        {
-            'Endpoint': '/users/id/',
-            'method': 'GET',
-            'body': None,
-            'description': 'Returns a single user object'
-        },
-
-        
-        
-    ]
-
-    return Response(routes)
-
 
 # @api_view(['GET'])
 # def getQuestions(request):
