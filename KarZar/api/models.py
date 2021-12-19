@@ -9,10 +9,10 @@ class Question(models.Model):
 
     Q_Body = models.TextField(blank=False)
     
-    Option_1 = models.CharField(max_length=50, blank=False)
-    Option_2 = models.CharField(max_length=50, blank=False)
-    Option_3 = models.CharField(max_length=50, blank=True)
-    Option_4 = models.CharField(max_length=50, blank=True)
+    Option_1 = models.CharField(max_length=110, blank=False)
+    Option_2 = models.CharField(max_length=110, blank=False)
+    Option_3 = models.CharField(max_length=110, blank=True)
+    Option_4 = models.CharField(max_length=110, blank=True)
 
     Option_1_count = models.IntegerField(default=0)
     Option_2_count = models.IntegerField(default=0)
