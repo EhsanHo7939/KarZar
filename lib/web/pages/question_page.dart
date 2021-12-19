@@ -102,15 +102,18 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   const WebBar(),
                   Padding(
                     padding: pageWidth > 420 && pageWidth < 1200
-                        ? const EdgeInsets.symmetric(vertical: 50, horizontal: 0).copyWith(bottom: 0)
-                        : const EdgeInsets.symmetric(vertical: 50, horizontal: 200).copyWith(bottom: 0),
+                        ? const EdgeInsets.symmetric(vertical: 50, horizontal: 0)
+                            .copyWith(bottom: 0)
+                        : const EdgeInsets.symmetric(vertical: 50, horizontal: 200)
+                            .copyWith(bottom: 0),
                     child: Form(
                       key: formKey,
                       child: Column(
@@ -126,7 +129,8 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
 
                                 if (snapshot.hasError) {
                                   return Center(
-                                    child: Text('something went wrong! : ' + snapshot.error.toString()),
+                                    child: Text(
+                                        'something went wrong! : ' + snapshot.error.toString()),
                                   );
                                 }
 
@@ -218,11 +222,12 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
                                 if (formKey.currentState!.validate()) {
                                   int choice = Getter().getChoice();
                                   String opinion = Getter().getExtraOpinion();
-                                  if (choice == 0 && opinion == 'null') {
+                                  if (choice == 0 && opinion == '') {
                                     showDialog(
                                       context: context,
                                       builder: (context) => const AlertDialog(
-                                        content: Text('لطفا یک گزینه انتخاب کنید یا نظر شخصی خود را وارد کنید'),
+                                        content: Text(
+                                            'لطفا یک گزینه انتخاب کنید یا نظر شخصی خود را وارد کنید'),
                                       ),
                                     );
                                   } else {
@@ -231,10 +236,19 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
                                     if (choice == 3) option3count = option3count! + 1;
                                     if (choice == 4) option4count = option4count! + 1;
                                     if (!phoneNumbers.contains(phoneNumber!)) {
-                                      Networking()
-                                          .setVote(phoneNumber!, credentials, choice, opinion, widget.questionId);
-                                      Networking().countVote(qBody, option1, option2, option3, option4, option1count!,
-                                          option2count!, option3count!, option4count!, widget.questionId);
+                                      Networking().setVote(phoneNumber!, credentials, choice,
+                                          opinion, widget.questionId);
+                                      Networking().countVote(
+                                          qBody,
+                                          option1,
+                                          option2,
+                                          option3,
+                                          option4,
+                                          option1count!,
+                                          option2count!,
+                                          option3count!,
+                                          option4count!,
+                                          widget.questionId);
                                       setState(() => itemCount!.add('user'));
                                       Navigator.pop(context);
                                       ScaffoldMessenger.of(context).showSnackBar(

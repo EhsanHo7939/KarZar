@@ -4,7 +4,7 @@ bool? isActive4 = false;
 bool? isActive3 = false;
 bool? isActive2 = false;
 bool? isActive1 = false;
-String extraOption = 'null';
+String extraOption = '';
 TextEditingController controller = TextEditingController();
 
 class MobileQuestionHolder extends StatefulWidget {
@@ -95,6 +95,7 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
                   : const BorderSide(color: Colors.grey, width: 1),
               onTap: () {
                 setState(() {
+                  extraOption = '';
                   controller.clear();
                   isActive1 = true;
                   isActive2 = false;
@@ -111,6 +112,7 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
               textMsg: widget.option2,
               onTap: () {
                 setState(() {
+                  extraOption = '';
                   controller.clear();
                   isActive1 = false;
                   isActive2 = true;
@@ -129,6 +131,7 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
                 textMsg: widget.option3,
                 onTap: () {
                   setState(() {
+                    extraOption = '';
                     controller.clear();
                     isActive1 = false;
                     isActive2 = false;
@@ -148,6 +151,7 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
                 textMsg: widget.option4,
                 onTap: () {
                   setState(() {
+                    extraOption = '';
                     controller.clear();
                     isActive1 = false;
                     isActive2 = false;

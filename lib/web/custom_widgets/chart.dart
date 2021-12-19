@@ -20,10 +20,16 @@ class _TheChartState extends State<TheChart> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           Map<String, dynamic> data = snapshot.data!;
-          int under =
-              (data['Option_1_count'] + data['Option_2_count'] + data['Option_3_count'] + data['Option_4_count']) != 0
-                  ? (data['Option_1_count'] + data['Option_2_count'] + data['Option_3_count'] + data['Option_4_count'])
-                  : 1;
+          int under = (data['Option_1_count'] +
+                      data['Option_2_count'] +
+                      data['Option_3_count'] +
+                      data['Option_4_count']) !=
+                  0
+              ? (data['Option_1_count'] +
+                  data['Option_2_count'] +
+                  data['Option_3_count'] +
+                  data['Option_4_count'])
+              : 1;
 
           double option1Percent = data['Option_1_count'] / under;
           double option2Percent = data['Option_2_count'] / under;
@@ -52,8 +58,10 @@ class _TheChartState extends State<TheChart> {
                                   child: Text(
                                     "${data['Q_Body']}",
                                     textAlign: TextAlign.end,
-                                    style:
-                                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.white),
                                   ),
                                 ),
                               ),
@@ -77,7 +85,8 @@ class _TheChartState extends State<TheChart> {
                                   child: Text(
                                     " ${data['Option_1']} ",
                                     textAlign: TextAlign.end,
-                                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold, color: Colors.white),
                                   ),
                                 ),
                               ],
@@ -87,7 +96,8 @@ class _TheChartState extends State<TheChart> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 200, right: 200, top: 20, bottom: 20),
+                          padding:
+                              const EdgeInsets.only(left: 200, right: 200, top: 20, bottom: 20),
                           child: LinearPercentIndicator(
                             backgroundColor: const Color(0xFF05193f),
                             animation: true,
@@ -103,7 +113,8 @@ class _TheChartState extends State<TheChart> {
                                   child: Text(
                                     " ${data['Option_2']} ",
                                     textAlign: TextAlign.end,
-                                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold, color: Colors.white),
                                   ),
                                 ),
                               ],
@@ -112,56 +123,67 @@ class _TheChartState extends State<TheChart> {
                             progressColor: const Color(0xFF38c0ea),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 200, right: 200),
-                          child: LinearPercentIndicator(
-                            backgroundColor: const Color(0xFF05193f),
-                            animation: true,
-                            lineHeight: 50.0,
-                            animationDuration: 1000,
-                            percent: double.parse(option3Percent.toStringAsFixed(4)),
-                            center: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(" ${double.parse(option3Percent.toStringAsFixed(3)) * 100} %"),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: Text(
-                                    " ${data['Option_3']} ",
-                                    textAlign: TextAlign.end,
-                                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                        Visibility(
+                          visible: data['Option_3'] == "" ? false : true,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 200, right: 200),
+                            child: LinearPercentIndicator(
+                              backgroundColor: const Color(0xFF05193f),
+                              animation: true,
+                              lineHeight: 50.0,
+                              animationDuration: 1000,
+                              percent: double.parse(option3Percent.toStringAsFixed(4)),
+                              center: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      " ${double.parse(option3Percent.toStringAsFixed(3)) * 100} %"),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Text(
+                                      " ${data['Option_3']} ",
+                                      textAlign: TextAlign.end,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold, color: Colors.white),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              progressColor: const Color(0xFF38c0ea),
                             ),
-                            linearStrokeCap: LinearStrokeCap.roundAll,
-                            progressColor: const Color(0xFF38c0ea),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 200, right: 200, top: 20, bottom: 20),
-                          child: LinearPercentIndicator(
-                            backgroundColor: const Color(0xFF05193f),
-                            animation: true,
-                            lineHeight: 50.0,
-                            animationDuration: 1000,
-                            percent: double.parse(option4Percent.toStringAsFixed(4)),
-                            center: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(" ${double.parse(option4Percent.toStringAsFixed(3)) * 100} %"),
-                                const SizedBox(width: 10),
-                                Expanded(
-                                  child: Text(
-                                    " ${data['Option_4']} ",
-                                    textAlign: TextAlign.end,
-                                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                        Visibility(
+                          visible: data['Option_4'] == "" ? false : true,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(left: 200, right: 200, top: 20, bottom: 20),
+                            child: LinearPercentIndicator(
+                              backgroundColor: const Color(0xFF05193f),
+                              animation: true,
+                              lineHeight: 50.0,
+                              animationDuration: 1000,
+                              percent: double.parse(option4Percent.toStringAsFixed(4)),
+                              center: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                      " ${double.parse(option4Percent.toStringAsFixed(3)) * 100} %"),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Text(
+                                      " ${data['Option_4']} ",
+                                      textAlign: TextAlign.end,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold, color: Colors.white),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              progressColor: const Color(0xFF38c0ea),
                             ),
-                            linearStrokeCap: LinearStrokeCap.roundAll,
-                            progressColor: const Color(0xFF38c0ea),
                           ),
                         ),
                       ],
@@ -190,7 +212,8 @@ class _TheChartState extends State<TheChart> {
                                   child: Text(
                                     opinion,
                                     textAlign: TextAlign.end,
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                                    style:
+                                        const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                                   ),
                                 ),
                                 const Divider(color: Colors.black),

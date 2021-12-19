@@ -13,11 +13,11 @@ class WebAdminAddQuestionPage extends StatefulWidget {
 }
 
 class _WebAdminAddQuestionPageState extends State<WebAdminAddQuestionPage> {
-  String qBody = 'روی سوال داده نشده';
-  String option1 = 'گزینه داده نشده';
-  String option2 = 'گزینه داده نشده';
-  String option3 = 'null';
-  String option4 = 'null';
+  String qBody = '';
+  String option1 = '';
+  String option2 = '';
+  String option3 = '';
+  String option4 = '';
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +27,17 @@ class _WebAdminAddQuestionPageState extends State<WebAdminAddQuestionPage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
               child: Column(
                 children: <Widget>[
                   const AdminWebBar(),
                   Padding(
                     padding: pageWidth > 420 && pageWidth < 1200
-                        ? const EdgeInsets.symmetric(vertical: 50, horizontal: 0).copyWith(bottom: 0)
-                        : const EdgeInsets.symmetric(vertical: 50, horizontal: 200).copyWith(bottom: 0),
+                        ? const EdgeInsets.symmetric(vertical: 50, horizontal: 0)
+                            .copyWith(bottom: 0)
+                        : const EdgeInsets.symmetric(vertical: 50, horizontal: 200)
+                            .copyWith(bottom: 0),
                     child: Column(
                       children: <Widget>[
                         AdminWebQuestionHolder(
@@ -54,61 +57,91 @@ class _WebAdminAddQuestionPageState extends State<WebAdminAddQuestionPage> {
                             option4 = value;
                           },
                         ),
-                        const SizedBox(height: 20),
-                        SizedBox(
-                          width: 250,
-                          child: MaterialButton(
-                            color: Colors.lightBlueAccent,
-                            height: 50,
-                            child: const Center(
-                              child: Text('ثبت سوال'),
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: const Text(
-                                      'ارسال سوال',
-                                      textDirection: TextDirection.rtl,
-                                    ),
-                                    content: const Text('ایا از ارسال نظرسنجی مطمعن هستید'),
-                                    actions: [
-                                      TextButton(
-                                        child: const Text('خیر'),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: const Text('بله'),
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          Networking().createQ(
-                                            qBody,
-                                            option1,
-                                            option2,
-                                            option3,
-                                            option4,
-                                            context,
-                                          );
-                                        },
-                                      ),
-                                    ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: SizedBox(
+                            width: 250,
+                            child: MaterialButton(
+                              color: Colors.lightBlueAccent,
+                              height: 50,
+                              child: const Center(
+                                child: Text('ثبت سوال'),
+                              ),
+                              onPressed: () {
+                                if (qBody == '' || option1 == '' || option2 == '') {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const AlertDialog(
+                                        content: Text(
+                                          'لطفا روی سوال و حداقل گزینه ی یک و دو را خالی نگذارید',
+                                        ),
+                                      );
+                                    },
                                   );
-                                },
-                              );
-                            },
+                                } else {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: const Text(
+                                          'ارسال سوال',
+                                          textDirection: TextDirection.rtl,
+                                        ),
+                                        content: const Text('ایا از ارسال نظرسنجی مطمعن هستید'),
+                                        actions: [
+                                          TextButton(
+                                            child: const Text('خیر'),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                          TextButton(
+                                            child: const Text('بله'),
+                                            onPressed: () {
+                                              Networking().createQ(
+                                                qBody,
+                                                option1,
+                                                option2,
+                                                option3,
+                                                option4,
+                                                context,
+                                              );
+                                              Navigator.pop(context);
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return const AlertDialog(
+                                                    content: Text(
+                                                      'سوال با موفقیت ثبت شد',
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    backgroundColor: Colors.green,
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 20),
                       ],
                     ),
                   )
                 ],
               ),
             ),
-            const WebBottomBar()
+            const WebBottomBar(),
           ],
         ),
       ),

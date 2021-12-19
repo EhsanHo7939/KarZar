@@ -1,6 +1,6 @@
 import 'package:kar_zar/web/custom_widgets/bottombar.dart';
 import 'package:kar_zar/web/custom_widgets/appbar.dart';
-import 'package:kar_zar/web/custom_widgets/grids.dart';
+import 'package:kar_zar/web/custom_widgets/grid.dart';
 import 'package:kar_zar/web/pages/question_page.dart';
 import 'package:kar_zar/networking/api.dart';
 import 'package:flutter/material.dart';
@@ -42,12 +42,13 @@ class _WebHomePageState extends State<WebHomePage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 0),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    const AdminWebBar(),
+                    if (true) AdminWebBar(),
                     Directionality(
                       textDirection: TextDirection.rtl,
                       child: Row(
@@ -86,7 +87,10 @@ class _WebHomePageState extends State<WebHomePage> {
                                   child: Center(
                                     child: Text(
                                       "جستجو",
-                                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14),
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14),
                                     ),
                                   ),
                                 ),

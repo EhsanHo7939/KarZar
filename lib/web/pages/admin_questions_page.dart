@@ -1,6 +1,6 @@
 import 'package:kar_zar/web/custom_widgets/bottombar.dart';
 import 'package:kar_zar/web/custom_widgets/appbar.dart';
-import 'package:kar_zar/web/custom_widgets/grids.dart';
+import 'package:kar_zar/web/custom_widgets/grid.dart';
 import 'package:kar_zar/web/pages/question_page.dart';
 import 'package:kar_zar/networking/api.dart';
 import 'package:flutter/material.dart';

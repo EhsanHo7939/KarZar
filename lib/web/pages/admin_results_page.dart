@@ -13,7 +13,22 @@ class WebAdminResultsPage extends StatefulWidget {
 
 class _WebAdminResultsPageState extends State<WebAdminResultsPage> {
   int? clickCardColor;
-  int? questionId = 1;
+  int? questionId;
+
+  Widget chart() {
+    if (questionId == null) {
+      return const Padding(
+        padding: EdgeInsets.only(top: 300),
+        child: Text(
+          'لطفا سوال مورد نظر را انتخاب کنید',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+      );
+    } else {
+      return TheChart(questionId: questionId);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +40,8 @@ class _WebAdminResultsPageState extends State<WebAdminResultsPage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 25),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 50, horizontal: 100).copyWith(bottom: 25),
               child: const AdminWebBar(),
             ),
             Row(
@@ -33,9 +49,7 @@ class _WebAdminResultsPageState extends State<WebAdminResultsPage> {
                 SizedBox(
                   height: pageHeight,
                   width: pageWidth * .65,
-                  child: TheChart(
-                    questionId: questionId,
-                  ),
+                  child: chart(),
                 ),
                 SizedBox(
                   height: pageHeight,
@@ -50,7 +64,9 @@ class _WebAdminResultsPageState extends State<WebAdminResultsPage> {
                           var newQuestion = SizedBox(
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: i == clickCardColor ? const Color(0xFF05193f) : Colors.transparent,
+                              color: i == clickCardColor
+                                  ? const Color(0xFF05193f)
+                                  : Colors.transparent,
                               margin: const EdgeInsets.symmetric(vertical: 10),
                               child: InkWell(
                                 onTap: () => setState(() {
@@ -58,7 +74,8 @@ class _WebAdminResultsPageState extends State<WebAdminResultsPage> {
                                   questionId = snapshot.data![i]['id'];
                                 }),
                                 child: Padding(
-                                  padding: const EdgeInsets.only(top: 16, bottom: 16, right: 20, left: 20),
+                                  padding: const EdgeInsets.only(
+                                      top: 16, bottom: 16, right: 20, left: 20),
                                   child: Text(
                                     qBody,
                                     textAlign: TextAlign.end,

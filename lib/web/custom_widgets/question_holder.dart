@@ -4,7 +4,7 @@ bool? isActive4 = false;
 bool? isActive3 = false;
 bool? isActive2 = false;
 bool? isActive1 = false;
-String extraOption = 'null';
+String extraOption = '';
 TextEditingController controller = TextEditingController();
 
 class WebQuestionHolder extends StatefulWidget {
@@ -84,10 +84,11 @@ class _WebQuestionHolderState extends State<WebQuestionHolder> {
               isActive: isActive1,
               textMsg: widget.option1,
               side: isActive1!
-                  ? const BorderSide(color: Colors.cyan, width: 1)
+                  ? const BorderSide(color: const Color(0xFF05193f), width: 1)
                   : const BorderSide(color: Colors.grey, width: 1),
               onTap: () {
                 setState(() {
+                  extraOption = '';
                   controller.clear();
                   isActive1 = true;
                   isActive2 = false;
@@ -99,11 +100,12 @@ class _WebQuestionHolderState extends State<WebQuestionHolder> {
             QuestionMaker(
               isActive: isActive2,
               side: isActive2!
-                  ? const BorderSide(color: Colors.cyan, width: 1)
+                  ? const BorderSide(color: const Color(0xFF05193f), width: 1)
                   : const BorderSide(color: Colors.grey, width: 1),
               textMsg: widget.option2,
               onTap: () {
                 setState(() {
+                  extraOption = '';
                   controller.clear();
                   isActive1 = false;
                   isActive2 = true;
@@ -113,15 +115,16 @@ class _WebQuestionHolderState extends State<WebQuestionHolder> {
               },
             ),
             Visibility(
-              visible: widget.option3 == 'null' ? false : true,
+              visible: widget.option3 == '' ? false : true,
               child: QuestionMaker(
                 isActive: isActive3,
                 side: isActive3!
-                    ? const BorderSide(color: Colors.cyan, width: 1)
+                    ? const BorderSide(color: const Color(0xFF05193f), width: 1)
                     : const BorderSide(color: Colors.grey, width: 1),
                 textMsg: widget.option3,
                 onTap: () {
                   setState(() {
+                    extraOption = '';
                     controller.clear();
                     isActive1 = false;
                     isActive2 = false;
@@ -132,15 +135,16 @@ class _WebQuestionHolderState extends State<WebQuestionHolder> {
               ),
             ),
             Visibility(
-              visible: widget.option4 == 'null' ? false : true,
+              visible: widget.option4 == '' ? false : true,
               child: QuestionMaker(
                 isActive: isActive4,
                 side: isActive4!
-                    ? const BorderSide(color: Colors.cyan, width: 1)
+                    ? const BorderSide(color: const Color(0xFF05193f), width: 1)
                     : const BorderSide(color: Colors.grey, width: 1),
                 textMsg: widget.option4,
                 onTap: () {
                   setState(() {
+                    extraOption = '';
                     controller.clear();
                     isActive1 = false;
                     isActive2 = false;
@@ -391,12 +395,12 @@ class QuestionMaker extends StatelessWidget {
           textMsg!,
           textDirection: TextDirection.rtl,
           style: TextStyle(
-            color: isActive! ? Colors.black : Colors.black87,
+            color: isActive! ? Colors.white : Colors.black87,
           ),
         ),
         onTap: onTap,
       ),
-      color: isActive! ? Colors.cyan : Colors.white,
+      color: isActive! ? const Color(0xFF05193f) : Colors.white,
     );
   }
 }
