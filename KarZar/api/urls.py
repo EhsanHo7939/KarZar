@@ -14,4 +14,5 @@ urlpatterns = [
 
     path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('auth/', include('dj_rest_auth.urls'), name="authentication"),
 ]

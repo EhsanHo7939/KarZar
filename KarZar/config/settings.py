@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     
     'rest_framework',
     
+    'dj_rest_auth',
+
     'phonenumber_field',
     'django_filters',
     'corsheaders',
