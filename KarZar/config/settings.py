@@ -37,10 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     
     'rest_framework',
+    'rest_framework.authtoken',
     
     'dj_rest_auth',
+    'dj_rest_auth.registration',
+
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 
     'phonenumber_field',
     'django_filters',
@@ -177,3 +185,5 @@ CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     "x-requested-with",
 ]
+
+SITE_ID = 1
