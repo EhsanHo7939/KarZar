@@ -119,10 +119,6 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
                                   option2 = data['Option_2'];
                                   option3 = data['Option_3'];
                                   option4 = data['Option_4'];
-                                  option1count = data['Option_1_count'];
-                                  option2count = data['Option_2_count'];
-                                  option3count = data['Option_3_count'];
-                                  option4count = data['Option_4_count'];
                                   return WebQuestionHolder(
                                     qBody: qBody,
                                     option1: option1,
@@ -188,10 +184,15 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
                               child: const Center(
                                 child: Text('ثبت'),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
+                                int choice = Getter().getChoice();
+                                String opinion = Getter().getExtraOpinion();
+                                var data = await Api.getQ(widget.questionId);
+                                option1count = data['Option_1_count'];
+                                option2count = data['Option_2_count'];
+                                option3count = data['Option_3_count'];
+                                option4count = data['Option_4_count'];
                                 if (formKey.currentState!.validate()) {
-                                  int choice = Getter().getChoice();
-                                  String opinion = Getter().getExtraOpinion();
                                   if (choice == 0 && opinion == '') {
                                     showDialog(
                                       context: context,
@@ -206,9 +207,9 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
                                     if (choice == 3) option3count = option3count! + 1;
                                     if (choice == 4) option4count = option4count! + 1;
                                     if (!phoneNumbers.contains(phoneNumber!)) {
-                                      Api.setVote(phoneNumber!, credentials, choice, opinion,
+                                      await Api.setVote(phoneNumber!, credentials, choice, opinion,
                                           widget.questionId);
-                                      Api.countVote(
+                                      await Api.countVote(
                                           qBody,
                                           option1,
                                           option2,
