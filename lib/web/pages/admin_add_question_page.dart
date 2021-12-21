@@ -1,7 +1,7 @@
-import 'package:kar_zar/web/custom_widgets/question_holder.dart';
-import 'package:kar_zar/web/custom_widgets/bottombar.dart';
-import 'package:kar_zar/web/custom_widgets/appbar.dart';
-import 'package:kar_zar/networking/api.dart';
+import 'package:kar_zar/web/widgets/question_holder.dart';
+import 'package:kar_zar/web/widgets/bottombar.dart';
+import 'package:kar_zar/web/widgets/appbar.dart';
+import 'package:kar_zar/utilities/api.dart';
 import 'package:flutter/material.dart';
 
 class WebAdminAddQuestionPage extends StatefulWidget {
@@ -18,6 +18,24 @@ class _WebAdminAddQuestionPageState extends State<WebAdminAddQuestionPage> {
   String option2 = '';
   String option3 = '';
   String option4 = '';
+  bool isLoggedIn = false;
+
+  getLoginStatus() async {
+    bool accessIsValid = await Api.accessChecker();
+    if (accessIsValid) {
+      isLoggedIn = true;
+    } else if (!accessIsValid) {
+      var data = await Api.accessMaker();
+      if (data == {}) isLoggedIn = true;
+      if (data['msg'] == 'no refresh token') isLoggedIn = false;
+    }
+  }
+
+  @override
+  void initState() {
+    getLoginStatus();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,31 +117,34 @@ class _WebAdminAddQuestionPageState extends State<WebAdminAddQuestionPage> {
                                           TextButton(
                                             child: const Text('بله'),
                                             onPressed: () {
-                                              Networking().createQ(
-                                                qBody,
-                                                option1,
-                                                option2,
-                                                option3,
-                                                option4,
-                                                context,
-                                              );
-                                              Navigator.pop(context);
-                                              showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return const AlertDialog(
-                                                    content: Text(
-                                                      'سوال با موفقیت ثبت شد',
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                        fontWeight: FontWeight.bold,
+                                              if (isLoggedIn) {
+                                                Api.createQ(
+                                                  qBody,
+                                                  option1,
+                                                  option2,
+                                                  option3,
+                                                  option4,
+                                                  context,
+                                                );
+                                                Navigator.pop(context);
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return const AlertDialog(
+                                                      content: Text(
+                                                        'سوال با موفقیت ثبت شد',
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight: FontWeight.bold,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    backgroundColor: Colors.green,
-                                                  );
-                                                },
-                                              );
+                                                      backgroundColor: Colors.green,
+                                                    );
+                                                  },
+                                                );
+                                              }
+                                              if (!isLoggedIn) Api.accessMaker();
                                             },
                                           ),
                                         ],

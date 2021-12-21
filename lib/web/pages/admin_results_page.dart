@@ -1,7 +1,7 @@
+import 'package:kar_zar/web/widgets/appbar.dart';
+import 'package:kar_zar/web/widgets/chart.dart';
+import 'package:kar_zar/utilities/api.dart';
 import 'package:flutter/material.dart';
-import 'package:kar_zar/networking/api.dart';
-import 'package:kar_zar/web/custom_widgets/chart.dart';
-import 'package:kar_zar/web/custom_widgets/appbar.dart';
 
 class WebAdminResultsPage extends StatefulWidget {
   const WebAdminResultsPage({Key? key}) : super(key: key);
@@ -55,7 +55,7 @@ class _WebAdminResultsPageState extends State<WebAdminResultsPage> {
                   height: pageHeight,
                   width: pageWidth * .35,
                   child: FutureBuilder<List<dynamic>>(
-                    future: Networking().getQs(),
+                    future: Api.getQs(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         List<Widget> questions = [];

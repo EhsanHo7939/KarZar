@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:kar_zar/networking/api.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:kar_zar/utilities/api.dart';
+import 'package:flutter/material.dart';
 
 class TheChart extends StatefulWidget {
   const TheChart({
@@ -16,7 +16,7 @@ class _TheChartState extends State<TheChart> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Map<String, dynamic>>(
-      future: Networking().getQ(widget.questionId),
+      future: Api.getQ(widget.questionId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           Map<String, dynamic> data = snapshot.data!;
@@ -197,14 +197,14 @@ class _TheChartState extends State<TheChart> {
                 Padding(
                   padding: const EdgeInsets.only(right: 100, left: 100, top: 0, bottom: 25),
                   child: FutureBuilder<List<dynamic>>(
-                    future: Networking().getVote(widget.questionId),
+                    future: Api.getVote(widget.questionId),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         List<Widget> opinions = [];
                         for (int i = 0; i < snapshot.data!.length; i++) {
                           var opinion = snapshot.data![i]['Voter_Opinion'];
 
-                          if (opinion != 'null') {
+                          if (opinion != '') {
                             var newOpinion = Column(
                               children: [
                                 Padding(

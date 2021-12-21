@@ -1,7 +1,8 @@
-import 'package:kar_zar/mobile/custom_widgets/question_holder.dart';
-import 'package:kar_zar/mobile/custom_widgets/bottombar.dart';
-import 'package:kar_zar/mobile/custom_widgets/appbar.dart';
-import 'package:kar_zar/networking/api.dart';
+import 'package:kar_zar/mobile/widgets/question_holder.dart';
+import 'package:kar_zar/mobile/widgets/bottombar.dart';
+import 'package:kar_zar/mobile/widgets/appbar.dart';
+import 'package:kar_zar/utilities/constants.dart';
+import 'package:kar_zar/utilities/api.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -18,7 +19,8 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
   final formKey = GlobalKey<FormState>();
   Random random = Random();
   String? phoneNumber;
-  String credentials = 'null';
+  bool isLoggedIn = false;
+  String credentials = '';
   String qBody = '';
   String option1 = '';
   String option2 = '';
@@ -28,59 +30,15 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
   int? option2count;
   int? option3count;
   int? option4count;
-  List? itemCount = [];
   List phoneNumbers = [];
-  List? colors = [
-    Colors.red,
-    Colors.orange,
-    Colors.amber,
-    Colors.green,
-    Colors.teal,
-    Colors.blue,
-    Colors.purple,
-  ];
 
-  List? alphabets = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'W',
-    'X',
-    'Y',
-    'Z',
-  ];
-
-  Color getRandomColor() {
-    int color = random.nextInt(7);
-    return colors![color];
-  }
-
-  String getRandomAlphabets() {
-    int alphabet = random.nextInt(26);
-    return alphabets![alphabet];
+  String getRandomIcons() {
+    int avatar = random.nextInt(kAvatars.length);
+    return kAvatars[avatar];
   }
 
   getNumbers() async {
-    List data = await Networking().getVote(widget.questionId);
+    List data = await Api.getVote(widget.questionId);
     for (int i = 0; i < data.length; i++) {
       String newNumber = data[i]["Voter_Phone_Number"];
       phoneNumbers.add(newNumber);
@@ -112,7 +70,7 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                       child: MobileBar(),
                     ),
                     FutureBuilder<Map<String, dynamic>>(
-                      future: Networking().getQ(widget.questionId),
+                      future: Api.getQ(widget.questionId),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return const CircularProgressIndicator();
@@ -218,7 +176,8 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                                             showDialog(
                                               context: context,
                                               builder: (context) => const AlertDialog(
-                                                content: Text('لطفا یک گزینه انتخاب کنید یا نظر شخصی خود را وارد کنید'),
+                                                content: Text(
+                                                    'لطفا یک گزینه انتخاب کنید یا نظر شخصی خود را وارد کنید'),
                                               ),
                                             );
                                           } else {
@@ -227,9 +186,9 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                                             if (choice == 3) option3count = option3count! + 1;
                                             if (choice == 4) option4count = option4count! + 1;
                                             if (!phoneNumbers.contains(phoneNumber!)) {
-                                              Networking().setVote(
-                                                  phoneNumber!, credentials, choice, opinion, widget.questionId);
-                                              Networking().countVote(
+                                              Api.setVote(phoneNumber!, credentials, choice,
+                                                  opinion, widget.questionId);
+                                              Api.countVote(
                                                   qBody,
                                                   option1,
                                                   option2,
@@ -240,7 +199,6 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                                                   option3count!,
                                                   option4count!,
                                                   widget.questionId);
-                                              setState(() => itemCount!.add('user'));
                                               Navigator.pop(context);
                                               ScaffoldMessenger.of(context).showSnackBar(
                                                 const SnackBar(
@@ -282,26 +240,36 @@ class _MobileQuestionPageState extends State<MobileQuestionPage> {
                                   const Divider(color: Colors.grey),
                                   SizedBox(
                                     height: 200,
-                                    child: GridView.builder(
-                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 5,
-                                        crossAxisSpacing: 8,
-                                        mainAxisSpacing: 8,
-                                      ),
-                                      itemCount: itemCount!.length,
-                                      itemBuilder: (context, index) {
-                                        return CircleAvatar(
-                                          backgroundColor: getRandomColor(),
-                                          radius: 30,
-                                          child: Text(
-                                            getRandomAlphabets(),
-                                            style: const TextStyle(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.white,
+                                    child: FutureBuilder<List<dynamic>>(
+                                      future: Api.getVote(widget.questionId),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasData) {
+                                          List<Widget> peoples = [];
+                                          for (int i = 0; i < snapshot.data!.length; i++) {
+                                            var people = Card(
+                                              color: Colors.grey,
+                                              shape: const CircleBorder(
+                                                  side: BorderSide(
+                                                      width: 0, color: Colors.transparent)),
+                                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                                              child: Image.network(
+                                                getRandomIcons(),
+                                                fit: BoxFit.fill,
+                                              ),
+                                            );
+                                            peoples.add(people);
+                                          }
+                                          return GridView(
+                                            gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 5,
+                                              crossAxisSpacing: 8,
+                                              mainAxisSpacing: 8,
                                             ),
-                                          ),
-                                        );
+                                            children: peoples,
+                                          );
+                                        }
+                                        return Container();
                                       },
                                     ),
                                   ),

@@ -1,8 +1,8 @@
-import 'package:kar_zar/web/custom_widgets/bottombar.dart';
-import 'package:kar_zar/web/custom_widgets/appbar.dart';
-import 'package:kar_zar/web/custom_widgets/grid.dart';
+import 'package:kar_zar/web/widgets/bottombar.dart';
+import 'package:kar_zar/web/widgets/appbar.dart';
+import 'package:kar_zar/web/widgets/grid.dart';
 import 'package:kar_zar/web/pages/question_page.dart';
-import 'package:kar_zar/networking/api.dart';
+import 'package:kar_zar/utilities/api.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -18,18 +18,37 @@ class _WebHomePageState extends State<WebHomePage> {
   Random random = Random();
   List<dynamic>? votes;
   String? searchedValue;
-  Future<List<dynamic>>? future = Networking().getQs();
+  Future<List<dynamic>>? future = Api.getQs();
+  bool isLoggedIn = false;
   List? colors = [
     Colors.amber[700],
     Colors.green[700],
+    Colors.purple[400],
     Colors.teal[800],
     Colors.blue[700],
-    Colors.purple,
+    Colors.pinkAccent
   ];
 
   Color getRandomColor() {
-    int color = random.nextInt(5);
+    int color = random.nextInt(colors!.length);
     return colors![color];
+  }
+
+  getLoginStatus() async {
+    bool accessIsValid = await Api.accessChecker();
+    if (accessIsValid) {
+      isLoggedIn = true;
+    } else if (!accessIsValid) {
+      var data = await Api.accessMaker();
+      if (data == {}) isLoggedIn = true;
+      if (data['msg'] == 'no refresh token') isLoggedIn = false;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getLoginStatus();
   }
 
   @override
@@ -48,7 +67,7 @@ class _WebHomePageState extends State<WebHomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    if (true) AdminWebBar(),
+                    isLoggedIn ? const AdminWebBar() : const WebBar(),
                     Directionality(
                       textDirection: TextDirection.rtl,
                       child: Row(
@@ -88,18 +107,19 @@ class _WebHomePageState extends State<WebHomePage> {
                                     child: Text(
                                       "جستجو",
                                       style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14),
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
                                     ),
                                   ),
                                 ),
                                 onTap: () {
                                   setState(() {
                                     if (searchedValue == null || searchedValue == '') {
-                                      future = future = Networking().getQs();
+                                      future = future = Api.getQs();
                                     } else {
-                                      future = Networking().searchQ(searchedValue!);
+                                      future = Api.searchQ(searchedValue!);
                                     }
                                   });
                                 },
@@ -141,17 +161,21 @@ class _WebHomePageState extends State<WebHomePage> {
                                   Padding(
                                     padding: const EdgeInsets.all(12),
                                     child: FutureBuilder<List<dynamic>>(
-                                      future: Networking().getVotes(),
+                                      future: Api.getVotes(),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
-                                          int totalVotes = snapshot.data![0]['id'];
+                                          int? totalVotes = 0;
+                                          if (snapshot.data! == []) totalVotes = 0;
+                                          if (snapshot.data! != [])
+                                            totalVotes = snapshot.data![0]['id'];
                                           return Text(
                                             "$totalVotes",
                                             style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 22,
-                                                fontFamily: 'Vazir-Bold'),
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 22,
+                                              fontFamily: 'Vazir-Bold',
+                                            ),
                                           );
                                         }
 
@@ -187,7 +211,10 @@ class _WebHomePageState extends State<WebHomePage> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           List<Widget> questions = [];
+                          int colorId = -1;
                           for (int i = 0; i < snapshot.data!.length; i++) {
+                            colorId++;
+                            if (colorId == 6) colorId = 0;
                             String qBody = snapshot.data![i]['Q_Body'].toString();
                             int id = snapshot.data![i]['id'] as int;
                             String authorFirstName = snapshot.data![i]['author_info']['first_name'];
@@ -208,7 +235,7 @@ class _WebHomePageState extends State<WebHomePage> {
                                 vote: id,
                                 authorFirstName: authorFirstName,
                                 authorLastName: authorLastName,
-                                color: getRandomColor(),
+                                color: colors![colorId],
                               ),
                             );
 
@@ -241,7 +268,7 @@ class _WebHomePageState extends State<WebHomePage> {
                 ),
               ),
             ),
-            const WebBottomBar()
+            const WebBottomBar(),
           ],
         ),
       ),

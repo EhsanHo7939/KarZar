@@ -1,4 +1,4 @@
-import 'package:kar_zar/networking/api.dart';
+import 'package:kar_zar/utilities/api.dart';
 import 'package:flutter/material.dart';
 
 class WebGrids extends StatelessWidget {
@@ -37,7 +37,7 @@ class WebGrids extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   FutureBuilder<List<dynamic>>(
-                    future: Networking().getVote(vote!),
+                    future: Api.getVote(vote!),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         int voteCount = snapshot.data!.length;
@@ -219,7 +219,7 @@ class AdminGridsBubble extends StatelessWidget {
                     },
                   ),
                   FutureBuilder<List<dynamic>>(
-                    future: Networking().getVote(vote!),
+                    future: Api.getVote(vote!),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         int voteCount = snapshot.data!.length;

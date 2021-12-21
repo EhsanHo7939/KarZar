@@ -1,7 +1,8 @@
-import 'package:kar_zar/web/custom_widgets/question_holder.dart';
-import 'package:kar_zar/web/custom_widgets/bottombar.dart';
-import 'package:kar_zar/web/custom_widgets/appbar.dart';
-import 'package:kar_zar/networking/api.dart';
+import 'package:kar_zar/web/widgets/question_holder.dart';
+import 'package:kar_zar/web/widgets/bottombar.dart';
+import 'package:kar_zar/utilities/constants.dart';
+import 'package:kar_zar/web/widgets/appbar.dart';
+import 'package:kar_zar/utilities/api.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -17,8 +18,9 @@ class WebQuestionPage extends StatefulWidget {
 class _WebQuestionPageState extends State<WebQuestionPage> {
   final formKey = GlobalKey<FormState>();
   Random random = Random();
+  bool isLoggedIn = false;
   String? phoneNumber;
-  String credentials = 'null';
+  String credentials = '';
   String qBody = '';
   String option1 = '';
   String option2 = '';
@@ -28,68 +30,36 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
   int? option2count;
   int? option3count;
   int? option4count;
-  List? itemCount = [];
   List phoneNumbers = [];
-  List? colors = [
-    Colors.red,
-    Colors.orange,
-    Colors.amber,
-    Colors.green,
-    Colors.teal,
-    Colors.blue,
-    Colors.purple,
-  ];
 
-  List? alphabets = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'W',
-    'X',
-    'Y',
-    'Z',
-  ];
-
-  Color getRandomColor() {
-    int color = random.nextInt(7);
-    return colors![color];
-  }
-
-  String getRandomAlphabets() {
-    int alphabet = random.nextInt(26);
-    return alphabets![alphabet];
+  String getRandomIcons() {
+    int avatar = random.nextInt(kAvatars.length);
+    return kAvatars[avatar];
   }
 
   getNumbers() async {
-    List data = await Networking().getVote(widget.questionId);
+    List data = await Api.getVote(widget.questionId);
     for (int i = 0; i < data.length; i++) {
       String newNumber = data[i]["Voter_Phone_Number"];
       phoneNumbers.add(newNumber);
     }
   }
 
+  getLoginStatus() async {
+    bool accessIsValid = await Api.accessChecker();
+    if (accessIsValid) {
+      isLoggedIn = true;
+    } else if (!accessIsValid) {
+      var data = await Api.accessMaker();
+      if (data == {}) isLoggedIn = true;
+      if (data['msg'] == 'no refresh token') isLoggedIn = false;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    getLoginStatus();
     getNumbers();
   }
 
@@ -107,7 +77,7 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  const WebBar(),
+                  isLoggedIn ? const AdminWebBar() : const WebBar(),
                   Padding(
                     padding: pageWidth > 420 && pageWidth < 1200
                         ? const EdgeInsets.symmetric(vertical: 50, horizontal: 0)
@@ -121,7 +91,7 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 100),
                             child: FutureBuilder<Map<String, dynamic>>(
-                              future: Networking().getQ(widget.questionId),
+                              future: Api.getQ(widget.questionId),
                               builder: (context, snapshot) {
                                 if (snapshot.connectionState == ConnectionState.waiting) {
                                   return const CircularProgressIndicator();
@@ -236,9 +206,9 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
                                     if (choice == 3) option3count = option3count! + 1;
                                     if (choice == 4) option4count = option4count! + 1;
                                     if (!phoneNumbers.contains(phoneNumber!)) {
-                                      Networking().setVote(phoneNumber!, credentials, choice,
-                                          opinion, widget.questionId);
-                                      Networking().countVote(
+                                      Api.setVote(phoneNumber!, credentials, choice, opinion,
+                                          widget.questionId);
+                                      Api.countVote(
                                           qBody,
                                           option1,
                                           option2,
@@ -249,7 +219,6 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
                                           option3count!,
                                           option4count!,
                                           widget.questionId);
-                                      setState(() => itemCount!.add('user'));
                                       Navigator.pop(context);
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
@@ -292,30 +261,38 @@ class _WebQuestionPageState extends State<WebQuestionPage> {
                   const Divider(color: Colors.grey),
                   SizedBox(
                     height: 500,
-                    child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: pageWidth < 1200
-                            ? pageWidth < 900
-                                ? 5
-                                : 8
-                            : 10,
-                        crossAxisSpacing: 40,
-                        mainAxisSpacing: 40,
-                      ),
-                      itemCount: itemCount!.length,
-                      itemBuilder: (context, index) {
-                        return CircleAvatar(
-                          backgroundColor: getRandomColor(),
-                          radius: 10,
-                          child: Text(
-                            getRandomAlphabets(),
-                            style: const TextStyle(
-                              fontSize: 35,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white,
+                    child: FutureBuilder<List<dynamic>>(
+                      future: Api.getVote(widget.questionId),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<Widget> peoples = [];
+                          for (int i = 0; i < snapshot.data!.length; i++) {
+                            var people = Card(
+                              color: Colors.grey,
+                              shape: const CircleBorder(
+                                  side: BorderSide(width: 0, color: Colors.transparent)),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: Image.network(
+                                getRandomIcons(),
+                                fit: BoxFit.fill,
+                              ),
+                            );
+                            peoples.add(people);
+                          }
+                          return GridView(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: pageWidth < 1200
+                                  ? pageWidth < 900
+                                      ? 5
+                                      : 8
+                                  : 10,
+                              crossAxisSpacing: 40,
+                              mainAxisSpacing: 40,
                             ),
-                          ),
-                        );
+                            children: peoples,
+                          );
+                        }
+                        return Container();
                       },
                     ),
                   ),

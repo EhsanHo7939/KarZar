@@ -1,4 +1,4 @@
-import 'package:kar_zar/networking/api.dart';
+import 'package:kar_zar/utilities/api.dart';
 import 'package:flutter/material.dart';
 
 class MobileGrids extends StatelessWidget {
@@ -42,7 +42,7 @@ class MobileGrids extends StatelessWidget {
               child: Stack(
                 children: [
                   FutureBuilder<List<dynamic>>(
-                    future: Networking().getVote(vote!),
+                    future: Api.getVote(vote!),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         int voteCount = snapshot.data!.length;
