@@ -93,7 +93,7 @@ class _WebAdminResultsPageState extends State<WebAdminResultsPage> {
                                 ),
                               ),
                             ),
-                            height: 100,
+                            height: 130,
                             width: pageWidth,
                           );
 

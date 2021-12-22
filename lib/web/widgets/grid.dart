@@ -67,7 +67,7 @@ class WebGrids extends StatelessWidget {
                                     ),
                                   ),
                                   const Text(
-                                    'نفر',
+                                    'تعداد',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,

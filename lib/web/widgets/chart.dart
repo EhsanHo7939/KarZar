@@ -42,13 +42,13 @@ class _TheChartState extends State<TheChart> {
                 Padding(
                   padding: const EdgeInsets.all(25.0),
                   child: Card(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(500)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
                     color: const Color(0xFF05193f),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.only(right: 200, bottom: 40, top: 20),
+                          padding: const EdgeInsets.only(right: 100, bottom: 40, top: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -59,9 +59,10 @@ class _TheChartState extends State<TheChart> {
                                     "${data['Q_Body']}",
                                     textAlign: TextAlign.end,
                                     style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        color: Colors.white),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -69,7 +70,7 @@ class _TheChartState extends State<TheChart> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 200, right: 200),
+                          padding: const EdgeInsets.only(left: 100, right: 100, bottom: 20),
                           child: LinearPercentIndicator(
                             backgroundColor: const Color(0xFF05193f),
                             animation: true,
@@ -96,8 +97,7 @@ class _TheChartState extends State<TheChart> {
                           ),
                         ),
                         Padding(
-                          padding:
-                              const EdgeInsets.only(left: 200, right: 200, top: 20, bottom: 20),
+                          padding: const EdgeInsets.only(left: 100, right: 100, bottom: 20),
                           child: LinearPercentIndicator(
                             backgroundColor: const Color(0xFF05193f),
                             animation: true,
@@ -126,7 +126,7 @@ class _TheChartState extends State<TheChart> {
                         Visibility(
                           visible: data['Option_3'] == "" ? false : true,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 200, right: 200),
+                            padding: const EdgeInsets.only(left: 100, right: 100, bottom: 20),
                             child: LinearPercentIndicator(
                               backgroundColor: const Color(0xFF05193f),
                               animation: true,
@@ -157,8 +157,7 @@ class _TheChartState extends State<TheChart> {
                         Visibility(
                           visible: data['Option_4'] == "" ? false : true,
                           child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 200, right: 200, top: 20, bottom: 20),
+                            padding: const EdgeInsets.only(left: 100, right: 100, bottom: 30),
                             child: LinearPercentIndicator(
                               backgroundColor: const Color(0xFF05193f),
                               animation: true,

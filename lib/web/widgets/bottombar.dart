@@ -20,7 +20,7 @@ class _WebBottomBarState extends State<WebBottomBar> {
           children: [
             TextButton(
               child: const Text(
-                'دارک روم',
+                'تیم توسعه دارالصّفا',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -45,7 +45,7 @@ class _WebBottomBarState extends State<WebBottomBar> {
               ),
             ),
             Text(
-              '.تمامی حقوق برای شرکت توسعه فناوری برخط بنیاد توسعه خوی محفوط است',
+              '.تمامی حقوق برای شرکت توسعه فناوری برخط بنیاد توسعه خوی محفوظ است',
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.grey[200],
