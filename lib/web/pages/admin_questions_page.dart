@@ -125,6 +125,9 @@ class _AdminQuestionsScreenState extends State<WebAdminQuestionsPage> {
                 ],
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             const WebBottomBar()
           ],
         ),
