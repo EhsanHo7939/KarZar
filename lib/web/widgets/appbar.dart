@@ -275,6 +275,7 @@ class AdminWebBar extends StatelessWidget {
                         'دارالصّفا',
                         style: TextStyle(
                           color: Colors.black,
+                          fontWeight: FontWeight.bold,
                           fontSize: 24,
                         ),
                       ),
@@ -282,6 +283,7 @@ class AdminWebBar extends StatelessWidget {
                         'بنیاد توسعه خوی',
                         style: TextStyle(
                           color: Colors.black,
+                          fontWeight: FontWeight.bold,
                           fontSize: 18,
                         ),
                       ),

@@ -105,12 +105,13 @@ class _AdminQuestionsScreenState extends State<WebAdminQuestionsPage> {
                               textDirection: TextDirection.rtl,
                               child: GridView(
                                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: pageWidth <= 1400
-                                      ? pageWidth <= 1006
-                                          ? 1
-                                          : 2
+                                  crossAxisCount: pageWidth < 1400
+                                      ? 1
                                       : 3,
-                                  crossAxisSpacing: 10,
+                                  crossAxisSpacing: 0,
+                                  childAspectRatio: pageWidth < 1400
+                                      ? pageWidth < 1150 ? 3.5 : 4
+                                      : 1.6,
                                 ),
                                 children: questions,
                               ),

@@ -94,7 +94,7 @@ class _WebAdminResultsPageState extends State<WebAdminResultsPage> {
                               ),
                             ),
                             height: 130,
-                            width: pageWidth,
+                            width: double.infinity,
                           );
 
                           questions.add(newQuestion);

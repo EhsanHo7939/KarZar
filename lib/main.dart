@@ -20,7 +20,7 @@ class KarZar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double? width = MediaQuery.of(context).size.width;
-    if (width <= 566) {
+    if (width <= 890) {
       return const MobileMain();
     } else {
       return const WebMain();

@@ -22,7 +22,7 @@ class _MobileBottomBarState extends State<MobileBottomBar> {
               children: [
                 Expanded(
                   child: Text(
-                    'تمامی حقوق برای شرکت توسعه فناوری برخط بنیاد توسعه خوی محفوط است.',
+                    'تمامی حقوق برای شرکت توسعه فناوری برخط بنیاد توسعه خوی محفوظ است.',
                     softWrap: true,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
@@ -47,7 +47,7 @@ class _MobileBottomBarState extends State<MobileBottomBar> {
                 ),
                 TextButton(
                   child: const Text(
-                    'دارک روم',
+                    'تیم توسعه دارالصّفا',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.lightBlue,

@@ -86,7 +86,8 @@ class _WebHomePageState extends State<WebHomePage> {
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "موضوع نظرسنجی را جستجو کنید ...",
-                                  ),
+                                    hintStyle:
+                                    TextStyle(fontWeight: FontWeight.bold),),
                                   onChanged: (value) => searchedValue = value,
                                 ),
                               ),
@@ -102,14 +103,14 @@ class _WebHomePageState extends State<WebHomePage> {
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: InkWell(
                                 child: const Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 35, vertical: 12),
+                                  padding: EdgeInsets.symmetric(vertical: 12),
                                   child: Center(
                                     child: Text(
                                       "جستجو",
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 14,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ),
@@ -155,7 +156,7 @@ class _WebHomePageState extends State<WebHomePage> {
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                      fontSize: 24,
                                     ),
                                   ),
                                   Padding(
@@ -166,14 +167,15 @@ class _WebHomePageState extends State<WebHomePage> {
                                         if (snapshot.hasData) {
                                           int? totalVotes = 0;
                                           if (snapshot.data! == []) totalVotes = 0;
-                                          if (snapshot.data! != [])
+                                          if (snapshot.data! != []) {
                                             totalVotes = snapshot.data![0]['id'];
+                                          }
                                           return Text(
                                             "$totalVotes",
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 22,
+                                              fontSize: 28,
                                               fontFamily: 'Vazir-Bold',
                                             ),
                                           );
@@ -193,7 +195,7 @@ class _WebHomePageState extends State<WebHomePage> {
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                      fontSize: 24,
                                     ),
                                   ),
                                 ],
@@ -248,14 +250,15 @@ class _WebHomePageState extends State<WebHomePage> {
                             textDirection: TextDirection.rtl,
                             child: GridView(
                               shrinkWrap: true,
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: pageWidth < 1513.9
-                                    ? pageWidth <= 1074
-                                        ? 1
-                                        : 2
+                              gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: pageWidth < 1400
+                                    ? 1
                                     : 3,
-                                crossAxisSpacing: 10,
-                                childAspectRatio: 1.4,
+                                crossAxisSpacing: 0,
+                                childAspectRatio: pageWidth < 1400
+                                    ? pageWidth < 1150 ? 3.5 : 4
+                                    : 1.6,
                               ),
                               children: questions,
                             ),
@@ -267,6 +270,9 @@ class _WebHomePageState extends State<WebHomePage> {
                   ],
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 20,
             ),
             const WebBottomBar(),
           ],
