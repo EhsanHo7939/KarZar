@@ -8,7 +8,7 @@ import 'dart:math';
 
 class WebHomePage extends StatefulWidget {
   const WebHomePage({Key? key}) : super(key: key);
-  static const String id = 'web_home_page';
+  static const String id = 'home';
 
   @override
   _WebHomePageState createState() => _WebHomePageState();
@@ -89,6 +89,15 @@ class _WebHomePageState extends State<WebHomePage> {
                                     hintStyle:
                                     TextStyle(fontWeight: FontWeight.bold),),
                                   onChanged: (value) => searchedValue = value,
+                                  onSubmitted: (value){
+                                      setState(() {
+                                      if (searchedValue == null || searchedValue == '') {
+                                        future = future = Api.getQs();
+                                      } else {
+                                        future = Api.searchQ(searchedValue!);
+                                      }
+                                    });
+                                    },
                                 ),
                               ),
                             ),
@@ -165,9 +174,9 @@ class _WebHomePageState extends State<WebHomePage> {
                                       future: Api.getVotes(),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
-                                          int? totalVotes = 0;
-                                          if (snapshot.data! == []) totalVotes = 0;
-                                          if (snapshot.data! != []) {
+                                          int? totalVotes;
+                                          if (snapshot.data!.isEmpty) totalVotes = 0;
+                                          if (snapshot.data!.isNotEmpty) {
                                             totalVotes = snapshot.data![0]['id'];
                                           }
                                           return Text(

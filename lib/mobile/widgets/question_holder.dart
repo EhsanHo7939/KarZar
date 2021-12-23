@@ -91,7 +91,7 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
               isActive: isActive1,
               textMsg: widget.option1,
               side: isActive1!
-                  ? const BorderSide(color: Colors.lightBlueAccent, width: 1)
+                  ? const BorderSide(color: Color(0xFF05193f), width: 1)
                   : const BorderSide(color: Colors.grey, width: 1),
               onTap: () {
                 setState(() {
@@ -107,7 +107,7 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
             QuestionMaker(
               isActive: isActive2,
               side: isActive2!
-                  ? const BorderSide(color: Colors.lightBlueAccent, width: 1)
+                  ? const BorderSide(color: Color(0xFF05193f), width: 1)
                   : const BorderSide(color: Colors.grey, width: 1),
               textMsg: widget.option2,
               onTap: () {
@@ -122,11 +122,11 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
               },
             ),
             Visibility(
-              visible: widget.option3 == 'null' ? false : true,
+              visible: widget.option3 == '' ? false : true,
               child: QuestionMaker(
                 isActive: isActive3,
                 side: isActive3!
-                    ? const BorderSide(color: Colors.lightBlueAccent, width: 1)
+                    ? const BorderSide(color: Color(0xFF05193f), width: 1)
                     : const BorderSide(color: Colors.grey, width: 1),
                 textMsg: widget.option3,
                 onTap: () {
@@ -142,11 +142,11 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
               ),
             ),
             Visibility(
-              visible: widget.option4 == 'null' ? false : true,
+              visible: widget.option4 == '' ? false : true,
               child: QuestionMaker(
                 isActive: isActive4,
                 side: isActive4!
-                    ? const BorderSide(color: Colors.cyan, width: 1)
+                    ? const BorderSide(color: Color(0xFF05193f), width: 1)
                     : const BorderSide(color: Colors.grey, width: 1),
                 textMsg: widget.option4,
                 onTap: () {
@@ -165,7 +165,7 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
               padding: const EdgeInsets.only(right: 0, left: 0, top: 15, bottom: 10),
               child: TextField(
                 keyboardType: TextInputType.multiline,
-                maxLines: null,
+                maxLines: 3,
                 controller: controller,
                 decoration: const InputDecoration(
                   contentPadding: EdgeInsets.only(top: 18, bottom: 18, right: 15, left: 15),
@@ -200,7 +200,7 @@ class _MobileQuestionHolderState extends State<MobileQuestionHolder> {
                 },
               ),
             ),
-            const Divider(color: Colors.grey, height: 5),
+            const Divider(color: Colors.grey, height: 50,),
             widget.widgets
           ],
         ),
@@ -235,12 +235,12 @@ class QuestionMaker extends StatelessWidget {
           textMsg!,
           textDirection: TextDirection.rtl,
           style: TextStyle(
-            color: isActive! ? Colors.black : Colors.black87,
+            color: isActive! ? Colors.white : Colors.black87,
           ),
         ),
         onTap: onTap,
       ),
-      color: isActive! ? Colors.cyan : Colors.white,
+      color: isActive! ? const Color(0xFF05193f) : Colors.white,
     );
   }
 }
