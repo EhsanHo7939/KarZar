@@ -139,7 +139,7 @@ class WebGrids extends StatelessWidget {
                         ),
                         Container(
                           width: double.infinity,
-                          padding: EdgeInsets.only(left: 20, top: karzarHeightSize * .23),
+                          padding: EdgeInsets.only(left: 20, top: karzarHeightSize * .22),
                           child: Align(
                             alignment: Alignment.topLeft,
                             child: FloatingActionButton(
