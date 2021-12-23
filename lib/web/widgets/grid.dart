@@ -50,7 +50,7 @@ class WebGrids extends StatelessWidget {
                             if (snapshot.hasData) {
                               int voteCount = snapshot.data!.length;
                               return Container(
-                                height: karzarHeightSize * .40,//رنگی
+                                height: karzarHeightSize * .42,//رنگی
                                 width: double.infinity,
                                 padding: const EdgeInsets.only(right: 150),
                                 color: color,

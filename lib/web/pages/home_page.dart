@@ -208,6 +208,17 @@ class _WebHomePageState extends State<WebHomePage> {
                       ],
                     ),
                     const Divider(),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 10,top: 10,bottom: 5),
+                      child: Text(
+                        "نظرسنجی ها",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
                     FutureBuilder<List<dynamic>>(
                       future: future,
                       builder: (context, snapshot) {
@@ -271,10 +282,10 @@ class _WebHomePageState extends State<WebHomePage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
+            const Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: WebBottomBar(),
             ),
-            const WebBottomBar(),
           ],
         ),
       ),

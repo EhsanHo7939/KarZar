@@ -18,7 +18,7 @@ class MobileGrids extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double? karzarHeightSize = 160;
+    double? karzarHeightSize = 180;
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
@@ -47,7 +47,7 @@ class MobileGrids extends StatelessWidget {
                       if (snapshot.hasData) {
                         int voteCount = snapshot.data!.length;
                         return Container(
-                          height: karzarHeightSize * .47,
+                          height: karzarHeightSize * .42,
                           width: double.infinity,
                           padding: const EdgeInsets.only(right: 150),
                           color: color,
@@ -57,14 +57,6 @@ class MobileGrids extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    const Text(
-                                      'نفر',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    ),
                                     Padding(
                                       padding: const EdgeInsets.only(right: 5, left: 5),
                                       child: Text(
@@ -109,7 +101,7 @@ class MobileGrids extends StatelessWidget {
                   Container(
                     height: karzarHeightSize * 1,
                     width: double.infinity,
-                    padding: EdgeInsets.only(right: 150, top: karzarHeightSize * .52),
+                    padding: EdgeInsets.only(right: 150, top: karzarHeightSize * .45),
                     child: Padding(
                       padding: const EdgeInsets.only(top: 15),
                       child: Text(
@@ -126,7 +118,8 @@ class MobileGrids extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: Card(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
+                        side: BorderSide(width: 2, color: color!),
+                        borderRadius: BorderRadius.circular(25),
                       ),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       margin: const EdgeInsets.only(right: 12),
@@ -142,7 +135,7 @@ class MobileGrids extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.only(left: 20, top: karzarHeightSize * .28),
+                    padding: EdgeInsets.only(left: 20, top: karzarHeightSize * .23),
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: FloatingActionButton(
@@ -160,7 +153,7 @@ class MobileGrids extends StatelessWidget {
             padding: const EdgeInsets.only(right: 5, left: 5),
             child: Container(
               color: color,
-              height: .7,
+              height: 1,
               child: const Divider(),
             ),
           ),

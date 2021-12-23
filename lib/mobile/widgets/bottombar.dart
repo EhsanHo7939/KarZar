@@ -13,7 +13,7 @@ class _MobileBottomBarState extends State<MobileBottomBar> {
     return Container(
       alignment: Alignment.center,
       child: Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 20),
+        padding: const EdgeInsets.only(top: 15, bottom: 15),
         child: Column(
           children: [
             Row(
@@ -27,7 +27,7 @@ class _MobileBottomBarState extends State<MobileBottomBar> {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.clip,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: Colors.grey[200],
                     ),
                   ),
@@ -41,7 +41,7 @@ class _MobileBottomBarState extends State<MobileBottomBar> {
                 Text(
                   'طراحی و توسعه توسط',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 13,
                     color: Colors.grey[200],
                   ),
                 ),
@@ -49,7 +49,7 @@ class _MobileBottomBarState extends State<MobileBottomBar> {
                   child: const Text(
                     'تیم توسعه دارالصّفا',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       color: Colors.lightBlue,
                       fontWeight: FontWeight.bold,
                     ),

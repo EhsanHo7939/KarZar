@@ -146,7 +146,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                          fontSize: 24,
                                         ),
                                       ),
                                       Padding(
@@ -165,7 +165,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                                 style: const TextStyle(
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 22,
+                                                  fontSize: 28,
                                                   fontFamily: 'Vazir-Bold',
                                                 ),
                                               );
@@ -184,7 +184,7 @@ class _MobileHomePageState extends State<MobileHomePage> {
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20,
+                                          fontSize: 24,
                                         ),
                                       ),
                                     ],
@@ -196,11 +196,8 @@ class _MobileHomePageState extends State<MobileHomePage> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
                     const Padding(
-                      padding: EdgeInsets.only(right: 10),
+                      padding: EdgeInsets.only(right: 10,top: 10,bottom: 5),
                       child: Text(
                         "نظرسنجی ها",
                         style: TextStyle(
@@ -255,7 +252,10 @@ class _MobileHomePageState extends State<MobileHomePage> {
                   ],
                 ),
               ),
-              const MobileBottomBar(),
+              const Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: MobileBottomBar(),
+              ),
             ],
           ),
         ),

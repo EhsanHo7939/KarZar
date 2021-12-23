@@ -13,7 +13,7 @@ class _WebBottomBarState extends State<WebBottomBar> {
     return Container(
       alignment: Alignment.center,
       child: Padding(
-        padding: const EdgeInsets.only(top: 17, bottom: 17),
+        padding: const EdgeInsets.only(top: 15, bottom: 15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
