@@ -1,12 +1,10 @@
 import 'package:kar_zar/utilities/shared_preferences.dart';
 import 'package:kar_zar/mobile/mobile_main.dart';
-import 'package:url_strategy/url_strategy.dart';
 import 'package:kar_zar/web/web_main.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setPathUrlStrategy();
   await UserSharedPreferences.init();
   runApp(
     const MaterialApp(

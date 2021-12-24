@@ -8,7 +8,7 @@ import 'dart:math';
 
 class MobileHomePage extends StatefulWidget {
   const MobileHomePage({Key? key}) : super(key: key);
-  static const String id = 'home';
+  static const String id = '/home';
 
   @override
   _MobileHomePageState createState() => _MobileHomePageState();
