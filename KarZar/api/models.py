@@ -7,6 +7,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 class Question(models.Model):
 
+    thumbnail = models.ImageField(upload_to="images")
     Q_Body = models.TextField(blank=False)
     
     Option_1 = models.CharField(max_length=110, blank=False)
